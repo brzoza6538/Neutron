@@ -12,8 +12,10 @@ class Pawn:
 
         self._Window = Window
 
+    def update(self):
+        self.move()
+
     def move(self):
-        self._Y -= 1
         self._Window.move(self._pawn, 0, -1)
     # do rozłożenia później na oddzielne pliki
 
