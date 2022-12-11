@@ -9,6 +9,7 @@ Game = Game(Window, 1)
 Window.Render()
 
 while True:
-    Window.update()
-
+    Window.Render()
+    Game.Render()
+    Window.Update()
 """zrób 3 podklasy jednostek - sterowane przez ciebie, AI i randomowo"""

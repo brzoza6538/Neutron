@@ -65,7 +65,7 @@ class Window:
         self.SetFrame()
         # jednostki
 
-    def update(self):
+    def Update(self):
         self._Window.update()
 
     # def callback(e):
