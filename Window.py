@@ -1,8 +1,7 @@
 import tkinter
-import time
 
 
-class Board:
+class Window:
 
     def __init__(self) -> None:
         # constants
@@ -30,6 +29,7 @@ class Board:
         self._canvas.pack(fill="both", expand=True)
 
     def SetFrame(self):
+        """split board into fields"""
         width = self._FrameWidth
         skip = self._FieldSize
         # X
@@ -48,8 +48,9 @@ class Board:
     def SetPawn(self, type, x, y):
         """what kind of pawn and where 0=ai, 1=random, 2=player, 3=neutron
         and where (x,y) for x,y e[0,5]"""
-        x = self._FrameWidth + int(self._FieldSize / 2) + x * (self._FrameWidth + self._FieldSize)
-        y = self._FrameWidth + int(self._FieldSize / 2) + y * (self._FrameWidth + self._FieldSize)
+        starter = self._FrameWidth + int(self._FieldSize / 2)
+        x = starter + x * (self._FrameWidth + self._FieldSize)
+        y = starter + y * (self._FrameWidth + self._FieldSize)
 
         self._canvas.create_oval(
             x-self._BallRadius,
@@ -60,13 +61,12 @@ class Board:
         )
 
     def Render(self):
-#tlo
+        # tlo
         self.SetFrame()
-        for x in range(5):
-            for y in range(5):
-                self.SetPawn("Red", x, y)
-        while True:
-            self._Window.update()
+        # jednostki
+
+    def update(self):
+        self._Window.update()
 
     # def callback(e):
     #     x = e.x
