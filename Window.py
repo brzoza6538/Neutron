@@ -60,6 +60,30 @@ class Window:
             fill=type
         )
 
+    def FieldsIntoPix(self, num):
+        num = num * (self._FrameWidth + self._FieldSize)
+        return num
+
+    def move(self, pawn, x, y):
+        x = self.FieldsIntoPix(x)
+        y = self.FieldsIntoPix(y)
+        self._canvas.move(pawn, x, y)
+
+    def CreatePawn(self, type, x, y):
+        starter = self._FrameWidth + int(self._FieldSize / 2)
+        x = starter + x * (self._FrameWidth + self._FieldSize)
+        y = starter + y * (self._FrameWidth + self._FieldSize)
+
+        pawn = self._canvas.create_oval(
+            x-self._BallRadius,
+            y-self._BallRadius,
+            x+self._BallRadius,
+            y+self._BallRadius,
+            fill=type
+        )
+
+        return pawn
+
     def Render(self):
         # tlo
         self.SetFrame()
