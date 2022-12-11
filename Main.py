@@ -1,4 +1,6 @@
 from Board import Board
 
 place = Board()
-place.Animation()
+place.Render()
+
+"""zrób 3 podklasy jednostek - sterowane przez ciebie, AI i randomowo"""

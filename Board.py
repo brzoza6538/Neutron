@@ -6,12 +6,12 @@ class Board:
 
     def __init__(self) -> None:
         # constants
-        self._FrameWidth = 10
+        self._FrameWidth = 5
         self._FieldSize = 50
         self._WindowWidth = ((5*self._FieldSize) + (self._FrameWidth*6))
         self._WindowHeight = ((5*self._FieldSize) + (self._FrameWidth*6))
 
-        self._BallRadius = 15
+        self._BallRadius = int(self._FieldSize/2) - 6
 
         self._BallStartXPosition = self._BallRadius
         self._BallStartYPosition = self._BallRadius
@@ -26,47 +26,47 @@ class Board:
         self._Window.geometry(f'{self._WindowWidth}x{self._WindowHeight}')
         # canvas
         self._canvas = tkinter.Canvas(self._Window)
-        self._canvas.configure(bg="Blue")
+        self._canvas.configure(bg="Gray")
         self._canvas.pack(fill="both", expand=True)
 
-    # def SetFrame(self):
-    #     width = self._FrameWidth
-    #     skip = self._FieldSize
-    #     # X
-    #     # for line in range(1):
-    #     #     self._canvas.create_rectangle(0, 0, width, self._WindowHeight, fill='Black')
+    def SetFrame(self):
+        width = self._FrameWidth
+        skip = self._FieldSize
+        # X
+        for line in range(6):
+            self._canvas.create_rectangle(
+                (width+skip)*line, 0,
+                (width+skip)*line + width, self._WindowHeight-1,
+                fill='Black')
+        # Y
+        for line in range(6):
+            self._canvas.create_rectangle(
+                0, (width+skip)*line,
+                self._WindowWidth-1, (width+skip)*line + width,
+                fill='Black')
 
-    def Animation(self):
-        xInc = self._Speed
-        yInc = self._Speed
-        ball = self._canvas.create_oval(
-            self._BallStartXPosition-self._BallRadius,
-            self._BallStartYPosition-self._BallRadius,
-            self._BallStartXPosition+self._BallRadius,
-            self._BallStartYPosition+self._BallRadius,
-            fill="Red", outline="", width=4)
+    def SetPawn(self, type, x, y):
+        """what kind of pawn and where 0=ai, 1=random, 2=player, 3=neutron
+        and where (x,y) for x,y e[0,5]"""
+        x = self._FrameWidth + int(self._FieldSize / 2) + x * (self._FrameWidth + self._FieldSize)
+        y = self._FrameWidth + int(self._FieldSize / 2) + y * (self._FrameWidth + self._FieldSize)
 
-        # while True:
-        #     self._Window.update()
+        self._canvas.create_oval(
+            x-self._BallRadius,
+            y-self._BallRadius,
+            x+self._BallRadius,
+            y+self._BallRadius,
+            fill=type
+        )
 
-
-# warstwa 1
+    def Render(self):
+#tlo
+        self.SetFrame()
+        for x in range(5):
+            for y in range(5):
+                self.SetPawn("Red", x, y)
         while True:
-            # self.SetFrame()
-            self._canvas.move(
-                ball, xInc, yInc
-                )
             self._Window.update()
-            time.sleep(self._RefreshFreq)
-            ball_pos = self._canvas.coords(ball)
-            # unpack array to variables
-            al, bl, ar, br = ball_pos
-            if al < abs(xInc) or ar > self._WindowWidth-abs(xInc):
-                xInc = -xInc
-            if bl < abs(yInc) or br > self._WindowHeight-abs(yInc):
-                yInc = -yInc
-
-
 
     # def callback(e):
     #     x = e.x
