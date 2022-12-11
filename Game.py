@@ -35,32 +35,17 @@ class Game:
         # self._PlayerPawn4.move()
         # self._PlayerPawn5.move()
 
-    def Render(self):
-        # self.Update()
-        # self._Window.move(self._EnemyPawn1._pawn, 0, 0)
-        # self._Window.move(self._EnemyPawn2._pawn, 0, 0)
-        # self._Window.move(self._EnemyPawn3._pawn, 0, 0)
-        # self._Window.move(self._EnemyPawn4._pawn, 0, 0)
-        # self._Window.move(self._EnemyPawn5._pawn, 0, 0)
-
-        # self._Window.move(self._PlayerPawn1._pawn, 0, -1)
-        # self._Window.move(self._PlayerPawn2._pawn, 0, -1)
-        # self._Window.move(self._PlayerPawn3._pawn, 0, -1)
-        # self._Window.move(self._PlayerPawn4._pawn, 0, -1)
-        # self._Window.move(self._PlayerPawn5._pawn, 0, -1)
-
-        # self._Window.move(self._Neutron._pawn, 0, 0)
+    def Update(self):
         self._EnemyPawn1.update()
         self._EnemyPawn2.update()
         self._EnemyPawn3.update()
         self._EnemyPawn4.update()
         self._EnemyPawn5.update()
-        
+
         self._PlayerPawn1.update()
         self._PlayerPawn2.update()
         self._PlayerPawn3.update()
         self._PlayerPawn4.update()
         self._PlayerPawn5.update()
-        
-        self._Neutron.update()
 
+        self._Neutron.update()

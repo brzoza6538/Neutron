@@ -11,7 +11,7 @@ Window.Render()
 Window.SetFrame()
 
 while True:
-    Game.Render()
+    Game.Update()
     Window.Update()
     time.sleep(1)
 """zrób 3 podklasy jednostek - sterowane przez ciebie, AI i randomowo"""
