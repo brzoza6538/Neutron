@@ -13,11 +13,13 @@ class Pawn:
         self._Window = Window
 
     def update(self):
-        self.move()
+        pass
 
-    def move(self):
-        self._Window.move(self._pawn, 0, -1)
-    # do rozłożenia później na oddzielne pliki
+    def move(self, x, y):
+        self._Window.move(self._pawn, x - self._X, y - self._Y)
+        self._X = x
+        self._Y = y
+    # do rozłożenia później na oddzielne pliki?
 
 
 class AIPawn(Pawn):
