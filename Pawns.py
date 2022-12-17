@@ -19,6 +19,14 @@ class Pawn:
     def type(self):
         return self._type
 
+    @property
+    def X(self):
+        return self._X
+
+    @property
+    def Y(self):
+        return self._Y
+
     def move(self, x, y):
         """na jakie pole (x,y) poruszyć"""
         self._Window.move(self._pawn, x - self._X, y - self._Y)
