@@ -12,14 +12,19 @@ class Pawn:
 
         self._Window = Window
 
-    def update(self):
+    def Update(self):
         pass
 
+    @property
+    def type(self):
+        return self._type
+
     def move(self, x, y):
+        """na jakie pole (x,y) poruszyć"""
         self._Window.move(self._pawn, x - self._X, y - self._Y)
         self._X = x
         self._Y = y
-    # do rozłożenia później na oddzielne pliki?
+    # do użycia gdzieś indziej
 
 
 class AIPawn(Pawn):
@@ -35,7 +40,7 @@ class RandomPawn(Pawn):
 
     def __init__(self, Window: Window, x, y):
         super().__init__(Window, x, y)
-        self._type = "random"
+        self._type = "Random"
         self._color = "Green"
         self._pawn = Window.CreatePawn(self._color, self._X, self._Y)
 
@@ -53,6 +58,6 @@ class NeutronPawn(Pawn):
 
     def __init__(self, Window: Window, x, y):
         super().__init__(Window, x, y)
-        self._type = "Player"
+        self._type = "Neutron"
         self._color = "Pink"
         self._pawn = Window.CreatePawn(self._color, self._X, self._Y)
