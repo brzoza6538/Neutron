@@ -1,10 +1,9 @@
 import Pawns
-import Window
-import Player
+import PlayablePlayer
 
 
 class Game:
-    def __init__(self, Window: Window, type):
+    def __init__(self, Window, type):
         "choose opponent: 1 = AI, 0 = random"
 
         self._Board = [[None for x in range(5)] for y in range(5)]
@@ -29,7 +28,7 @@ class Game:
 
         self._Window = Window
 
-        self._player1 = Player.Player(self._Window, self._Neutron, self._PlayerPawns, self._Board)
+        self._player1 = PlayablePlayer.PlayablePlayer(self._Window, self._Neutron, self._PlayerPawns, self._Board)
 
     def Update(self):
         self._player1.Update()

@@ -1,27 +1,19 @@
-import Pawns
-import Window
-
-
 class Player:
-    def __init__(self, Window: Window.Window, Neutron, Pawns, Board):
-        """główna kalsa
-        modyfikuje tablice, nie robi jej"""
+    def __init__(self, Window, Neutron, Pawns, Board):
         self._Window = Window
         self._Board = Board
         self._Pawns = Pawns
         self._Neutron = Neutron
-        self._line = self._Window._Canvas.create_line(
-            1, 1,
-            1, 1,
-            fill='Red',
-            width=5
-        )
+
+        self._usedPawn = None
+        self._pawnMoved = False
+        self._neutronMoved = False
 
     def Render(self):
         for pawn in range(5):
             self._Pawns[pawn].Update()
 
-    def IsMovePossible(self, pawn: Pawns.Pawn, x, y):
+    def IsMovePossible(self, pawn, x, y):
         """sprawdza czy ruch możliwy"""
         XCheck = pawn._X
         YCheck = pawn._Y
@@ -47,7 +39,7 @@ class Player:
             YCheck += y
         return XCheck, YCheck
 
-    def move(self, pawn: Pawns.Pawn, x, y):
+    def move(self, pawn, x, y):
         """x, y przyjmuja wartość -1, 0, 1"""
         XCheck = pawn._X
         YCheck = pawn._Y
@@ -64,37 +56,44 @@ class Player:
         self._Board[XCheck][YCheck] = pawn.type
 
         pawn.move(XCheck, YCheck)
-
-    def Update(self):
         self._Window._Canvas.delete(self._line)
 
+    def ShowLine(self, pawn, dirX, dirY):
+        self._Window._Canvas.delete(self._line)
 
-        dirX = self._Window.MouseX - self._Neutron._X
+        x = self.MoveToWhere(pawn, dirX, dirY)[0]
+        y = self.MoveToWhere(pawn, dirX, dirY)[1]
+
+        fieldsize = self._Window._FrameWidth + self._Window._FieldSize
+
+        self._line = self._Window._Canvas.create_line(
+            pawn.X * fieldsize + fieldsize/2,
+            pawn.Y * fieldsize + fieldsize/2,
+            x * fieldsize + fieldsize/2,
+            y * fieldsize + fieldsize/2,
+            fill="Red",
+            width=5
+        )
+
+    def turn(self, pawn):
+        """zwraca prawda/fałsz czy pionek sie poruszył"""
+        dirX = self._Window.MouseX - pawn._X
         if dirX > 0:
             dirX = 1
         if dirX < 0:
             dirX = -1
-        dirY = self._Window.MouseY - self._Neutron._Y
+        dirY = self._Window.MouseY - pawn._Y
         if dirY > 0:
             dirY = 1
         if dirY < 0:
             dirY = -1
-        # print(dirX, " ", dirY, "\n")
-        x1 = self.MoveToWhere(self._Neutron, dirX, dirY)[0]
-        y1 = self.MoveToWhere(self._Neutron, dirX, dirY)[1]
+        self.ShowLine(pawn, dirX, dirY)
 
-        self._line = self._Window._Canvas.create_line(
-            self._Neutron.X * 55 + 27,
-            self._Neutron.Y * 55 + 27,
-            x1 * 55 + 27,
-            y1 * 55 + 27,
-            fill='Red',
-            width=5
-        )
         if (self._Window.CheckClicked() is True):
-            if (self.IsMovePossible(self._Neutron, dirX, dirY)):
-                self.move(self._Neutron, dirX, dirY)
+            if (self.IsMovePossible(pawn, dirX, dirY)):
+                self.move(pawn, dirX, dirY)
+                return True
+        return False
 
-            else:
-                pass
-            # zrób inny ruch
+    def Update(self):
+        pass

@@ -122,8 +122,6 @@ class Window:
         self._Window.update()
         # self._Canvas.delete('all')
 
-
-
     # def callback(e):
     #     x = e.x
     #     y = e.y

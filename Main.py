@@ -1,6 +1,6 @@
 from Window import Window
 from Game import Game
-import time
+# import time
 
 Window = Window()
 Window.Render()
@@ -14,5 +14,4 @@ while True:
     Game.Update()
 
     Window.Update()
-    # time.sleep(1)
 """zrób 3 podklasy jednostek - sterowane przez ciebie, AI i randomowo"""
