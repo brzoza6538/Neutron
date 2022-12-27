@@ -1,6 +1,7 @@
 from Player import Player
 import random
 
+
 class RandomPlayer(Player):
 
     def __init__(self, Window, Neutron, Pawns, Board):
@@ -50,7 +51,7 @@ class RandomPlayer(Player):
         self._Window._Canvas.delete(self._line)
         self._Window._Canvas.delete(self._neutronLine)
 
-        self._usedPawn = self._Pawns[random.randint(0, 4)]
+        self._usedPawn = self._Pawns[random.randint(0,  (self._Window.numOfSpaces - 1))]
 
         self.turn(self._usedPawn, self._line)
 

@@ -18,3 +18,4 @@ while True:
         time.sleep(2)
         Window.on_closing()
         break
+"""co jeśli wybrany randomowy pionek nie ma drogi ucieczki """

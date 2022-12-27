@@ -22,7 +22,7 @@ class Player:
         XCheck = pawn._X
         YCheck = pawn._Y
 
-        if ((XCheck + x > 4) or (YCheck + y > 4) or (XCheck + x < 0) or (YCheck + y < 0)):
+        if ((XCheck + x >  (self._Window.numOfSpaces - 1)) or (YCheck + y >  (self._Window.numOfSpaces - 1)) or (XCheck + x < 0) or (YCheck + y < 0)):
             return False
         elif (self._Board[XCheck + x][YCheck + y] is not None):
             return False
@@ -33,7 +33,7 @@ class Player:
         XCheck = pawn._X
         YCheck = pawn._Y
         while True:
-            if ((XCheck + x > 4) or (YCheck + y > 4) or (XCheck + x < 0) or (YCheck + y < 0)):
+            if ((XCheck + x >  (self._Window.numOfSpaces - 1)) or (YCheck + y >  (self._Window.numOfSpaces - 1)) or (XCheck + x < 0) or (YCheck + y < 0)):
                 break
             elif (self._Board[XCheck + x][YCheck + y] is not None):
                 break
@@ -47,7 +47,7 @@ class Player:
         XCheck = pawn._X
         YCheck = pawn._Y
         while True:
-            if ((XCheck + x > 4) or (YCheck + y > 4) or (XCheck + x < 0) or (YCheck + y < 0)):
+            if ((XCheck + x >  (self._Window.numOfSpaces - 1)) or (YCheck + y >  (self._Window.numOfSpaces - 1)) or (XCheck + x < 0) or (YCheck + y < 0)):
                 break
             elif (self._Board[XCheck + x][YCheck + y] is not None):
                 break

@@ -17,6 +17,10 @@ class PlayablePlayer(Player):
             self._Window._Canvas.itemconfig(pawn._pawn, fill=pawn._color)
             return False
 
+    def move(self, pawn, x, y):
+        Player.move(self, pawn, x, y)
+        self._Window._Canvas.delete(self._line)
+
     def turn(self, pawn):
         """zwraca prawda/fałsz czy pionek sie poruszył"""
 
@@ -49,8 +53,6 @@ class PlayablePlayer(Player):
 
     def Update(self):
         # self.turn(self._Neutron)
-        self._Window._Canvas.delete(self._line)
-
         if (not self._pawnMoved):
             for pawn in self._Pawns:
                 if (self.isMouseOnPawn(pawn) and self._Window.CheckClicked()):
