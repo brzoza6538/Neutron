@@ -4,6 +4,7 @@ import RandomPlayer
 import time
 import math
 
+
 class Game:
     def __init__(self, Window, type):
         "choose opponent: 1 = AI, 0 = random"
@@ -26,7 +27,7 @@ class Game:
             self._PlayerPawns.append(Pawns.PlayerPawn(Window, x, (self._Window.numOfSpaces - 1)))
             self._Board[x][(self._Window.numOfSpaces - 1)] = self._PlayerPawns[x].type
 
-        middle = math.floor(self._Window.numOfSpaces/2) 
+        middle = math.floor(self._Window.numOfSpaces/2)
         self._Neutron = Pawns.NeutronPawn(Window, middle, middle)
         self._Board[middle][middle] = self._Neutron.type
 
