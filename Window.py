@@ -35,6 +35,10 @@ class Window:
         self._Clicked = False
 
     @property
+    def size(self):
+        return self._WindowWidth
+
+    @property
     def MouseX(self):
         return self._MouseX
 
@@ -118,8 +122,12 @@ class Window:
         self.SetFrame()
         # jednostki
 
+    def on_closing(self):
+        self._Window.destroy()
+
     def Update(self):
         self._Window.update()
+
         # self._Canvas.delete('all')
 
     # def callback(e):

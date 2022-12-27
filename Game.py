@@ -1,5 +1,7 @@
 import Pawns
 import PlayablePlayer
+import RandomPlayer
+import time
 
 
 class Game:
@@ -28,7 +30,26 @@ class Game:
 
         self._Window = Window
 
-        self._player1 = PlayablePlayer.PlayablePlayer(self._Window, self._Neutron, self._PlayerPawns, self._Board)
+        self._player = PlayablePlayer.PlayablePlayer(self._Window, self._Neutron, self._PlayerPawns, self._Board)
+        self._randEnemy = RandomPlayer.RandomPlayer(self._Window, self._Neutron, self._EnemyPawns, self._Board)
+
+    def checkIfEnd(self):
+        if (self._Neutron._Y == 4 or self._Neutron._Y == 0):
+            return True
+        return False
+
+    def WhoWon(self):
+        if (self._Neutron._Y == 4):
+            self._Window._Canvas.create_text(self._Window.size/2, self._Window.size/2, text="PRZEGRAŁEŚ", fill="Yellow", font=('Helvetica 25 bold'))
+        elif (self._Neutron._Y == 0):
+            self._Window._Canvas.create_text(self._Window.size/2, self._Window.size/2, text="WYGRAŁEŚ", fill="Yellow", font=('Helvetica 25 bold'))
+        self._Window.Update()
 
     def Update(self):
-        self._player1.Update()
+        if not self.checkIfEnd():
+            self._player.Update()
+
+        if not self.checkIfEnd():
+            if (self._player.isTurnFinished()):
+                time.sleep(1)
+                self._randEnemy.Update()

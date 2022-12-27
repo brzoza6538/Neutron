@@ -1,9 +1,7 @@
-from Window import Window
-
 
 class Pawn:
 
-    def __init__(self, Window: Window, x, y):
+    def __init__(self, Window, x, y):
         """x, y według pól na planszy, nie piexeli"""
         self._X = x
         self._Y = y
@@ -37,7 +35,7 @@ class Pawn:
 
 class AIPawn(Pawn):
 
-    def __init__(self, Window: Window, x, y):
+    def __init__(self, Window, x, y):
         super().__init__(Window, x, y)
         self._type = "AI"
         self._color = "Blue"
@@ -46,7 +44,7 @@ class AIPawn(Pawn):
 
 class RandomPawn(Pawn):
 
-    def __init__(self, Window: Window, x, y):
+    def __init__(self, Window, x, y):
         super().__init__(Window, x, y)
         self._type = "Random"
         self._color = "Green"
@@ -55,7 +53,7 @@ class RandomPawn(Pawn):
 
 class PlayerPawn(Pawn):
 
-    def __init__(self, Window: Window, x, y):
+    def __init__(self, Window, x, y):
         super().__init__(Window, x, y)
         self._type = "Player"
         self._color = "Red"
@@ -64,7 +62,7 @@ class PlayerPawn(Pawn):
 
 class NeutronPawn(Pawn):
 
-    def __init__(self, Window: Window, x, y):
+    def __init__(self, Window, x, y):
         super().__init__(Window, x, y)
         self._type = "Neutron"
         self._color = "Pink"

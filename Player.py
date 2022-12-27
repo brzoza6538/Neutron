@@ -1,5 +1,8 @@
+import Window
+
+
 class Player:
-    def __init__(self, Window, Neutron, Pawns, Board):
+    def __init__(self, Window: Window, Neutron, Pawns, Board):
         self._Window = Window
         self._Board = Board
         self._Pawns = Pawns
@@ -8,13 +11,14 @@ class Player:
         self._usedPawn = None
         self._pawnMoved = False
         self._neutronMoved = False
+        self._line = None
 
     def Render(self):
         for pawn in range(5):
             self._Pawns[pawn].Update()
 
     def IsMovePossible(self, pawn, x, y):
-        """sprawdza czy ruch możliwy"""
+        """sprawdza czy ruch możliwy, ruch o 0 pól oznacza że niemożliwy"""
         XCheck = pawn._X
         YCheck = pawn._Y
 
@@ -22,7 +26,6 @@ class Player:
             return False
         elif (self._Board[XCheck + x][YCheck + y] is not None):
             return False
-
         return True
 
     def MoveToWhere(self, pawn, x, y):
@@ -56,13 +59,11 @@ class Player:
         self._Board[XCheck][YCheck] = pawn.type
 
         pawn.move(XCheck, YCheck)
-        self._Window._Canvas.delete(self._line)
 
     def ShowLine(self, pawn, dirX, dirY):
         self._Window._Canvas.delete(self._line)
 
-        x = self.MoveToWhere(pawn, dirX, dirY)[0]
-        y = self.MoveToWhere(pawn, dirX, dirY)[1]
+        x, y = self.MoveToWhere(pawn, dirX, dirY)
 
         fieldsize = self._Window._FrameWidth + self._Window._FieldSize
 
@@ -75,25 +76,6 @@ class Player:
             width=5
         )
 
-    def turn(self, pawn):
-        """zwraca prawda/fałsz czy pionek sie poruszył"""
-        dirX = self._Window.MouseX - pawn._X
-        if dirX > 0:
-            dirX = 1
-        if dirX < 0:
-            dirX = -1
-        dirY = self._Window.MouseY - pawn._Y
-        if dirY > 0:
-            dirY = 1
-        if dirY < 0:
-            dirY = -1
-        self.ShowLine(pawn, dirX, dirY)
-
-        if (self._Window.CheckClicked() is True):
-            if (self.IsMovePossible(pawn, dirX, dirY)):
-                self.move(pawn, dirX, dirY)
-                return True
-        return False
-
     def Update(self):
         pass
+        # self._Window.Update()
