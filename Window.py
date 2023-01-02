@@ -5,7 +5,7 @@ class Window:
 
     def __init__(self) -> None:
         # constants
-        self._numOfSpaces = 9
+        self._numOfSpaces = 7  # musi być nieparzyste
         self._FrameWidth = 5
         self._FieldSize = 50
         self._WindowWidth = ((self._numOfSpaces*self._FieldSize) + (self._FrameWidth*(self._numOfSpaces+1)))
