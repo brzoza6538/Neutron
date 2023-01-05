@@ -41,4 +41,7 @@ class RandomPlayer(Player):
 
         self.pawnTurn()
 
-        self.neutronTurn()
+        if (self.isNeutronMovable()):
+            self.neutronTurn()
+        else:
+            self._immobileNeutron = False

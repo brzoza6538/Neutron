@@ -49,7 +49,6 @@ class Window:
     def MousePosition(self, e):
         self._MouseX = int(e.x / (self._FrameWidth + self._FieldSize + 1))
         self._MouseY = int(e.y / (self._FrameWidth + self._FieldSize + 1))
-        # print("Pointer is currently at %d, %d" % (self._MouseX, self._MouseY))
 
     def Clicked(self, e):
         self._Clicked = True
@@ -117,9 +116,6 @@ class Window:
         elif (y0 < y):
             dirY += 1
 
-        # używaj tylko dzielników self._FrameWidth + self._FieldSize żeby nie zaokrąglało
-
-        # @TODO animacja zamiast przeskoku
         while (abs(abs(x0) - abs(x)) > abs(self._speed) or abs(abs(y0) - abs(y)) > abs(self._speed)):
             x0 += dirX * self._speed
             y0 += dirY * self._speed
@@ -128,11 +124,8 @@ class Window:
             self._Canvas.move(pawn._pawn, dirX*self._speed, dirY*self._speed)
             self.Update()
 
-        # abominacjax = abs(abs(x0) - abs(x))
-        # abominacjay = abs(abs(y0) - abs(y))
         self._Canvas.move(pawn._pawn, dirX*(abs(abs(x0) - abs(x))), dirY*(abs(abs(y0) - abs(y))))
         self.Update()
-        # self._Canvas.move(pawn, x, y)
 
     def CreatePawn(self, type, x, y):
         starter = self._FrameWidth + int(self._FieldSize / 2)
@@ -155,13 +148,3 @@ class Window:
     def Update(self):
 
         self._Window.update()
-
-        # self._Canvas.delete('all')
-
-    # def callback(e):
-    #     x = e.x
-    #     y = e.y
-    #     print("Pointer is currently at %d, %d" % (x, y))
-
-    # def on_main_click(e):
-    #     print("sfffffffff")

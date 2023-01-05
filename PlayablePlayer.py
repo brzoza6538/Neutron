@@ -69,7 +69,6 @@ class PlayablePlayer(Player):
             return False
 
     def Update(self):
-        # self.turn(self._Neutron)
         if (not self._pawnMoved):
             for pawn in self._Pawns:
                 if (self.isMouseOnPawn(pawn) and self._Window.CheckClicked()):
@@ -78,7 +77,10 @@ class PlayablePlayer(Player):
             if (self._usedPawn is not None):
                 self._pawnMoved = self.turn(self._usedPawn)
 
-        if (not self._neutronMoved and self._pawnMoved):
-            self._neutronMoved = self.turn(self._Neutron)
+        if (self.isNeutronMovable()):
+            if (not self._neutronMoved and self._pawnMoved):
+                self._neutronMoved = self.turn(self._Neutron)
+        else:
+            self._immobileNeutron = True
 
         self._Window.Update()

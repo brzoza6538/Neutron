@@ -14,6 +14,7 @@ class Game:
         self._Board = Board.Board(Window)
         self._EnemyPawns = []
         self._PlayerPawns = []
+        self._winner = None
 
         self._Window.SetFrame()
 
@@ -27,10 +28,15 @@ class Game:
                 self._Board.setSpace(x, 0, self._EnemyPawns[x].type)
 
         for x in range(self._Window.numOfSpaces):
+            # self._PlayerPawns.append(Pawns.PlayerPawn(Window, x, (2)))
+            # self._Board.setSpace(x, 2, self._PlayerPawns[x].type)
+
             self._PlayerPawns.append(Pawns.PlayerPawn(Window, x, (self._Window.numOfSpaces - 1)))
             self._Board.setSpace(x, (self._Window.numOfSpaces - 1), self._PlayerPawns[x].type)
 
         middle = math.floor(self._Window.numOfSpaces/2)
+        # self._Neutron = Pawns.NeutronPawn(Window, middle, 1)
+        # self._Board.setSpace(middle, 1,  self._Neutron.type)
         self._Neutron = Pawns.NeutronPawn(Window, middle, middle)
         self._Board.setSpace(middle, middle,  self._Neutron.type)
 
@@ -40,13 +46,16 @@ class Game:
     def checkIfEnd(self):
         if (self._Neutron._Y == (self._Window.numOfSpaces - 1) or self._Neutron._Y == 0):
             return True
+        elif (self._player._immobileNeutron or self._randEnemy._immobileNeutron):
+            return True
         return False
 
     def WhoWon(self):
-        if (self._Neutron._Y == (self._Window.numOfSpaces - 1)):
+        if (self._Neutron._Y == (self._Window.numOfSpaces - 1) or self._player._immobileNeutron):
             self._Window._Canvas.create_text(self._Window.size/2, self._Window.size/2, text="PRZEGRAŁEŚ", fill="Yellow", font=('Helvetica 25 bold'))
-        elif (self._Neutron._Y == 0):
+        elif (self._Neutron._Y == 0 or self._randEnemy._immobileNeutron):
             self._Window._Canvas.create_text(self._Window.size/2, self._Window.size/2, text="WYGRAŁEŚ", fill="Yellow", font=('Helvetica 25 bold'))
+
         self._Window.Update()
 
     def Update(self):
