@@ -20,4 +20,5 @@ while True:
         break
 """co jeśli wybrany randomowy pionek nie ma drogi ucieczki
 The object of the game is to move the neutron into your home row, cause your opponent to move the neutron into your home row, or to block the neutron completely so your opponent can't move it.
-linia trajektoria neutrona podawana w neutronie?"""
+linia trajektoria neutrona podawana w neutronie?
+kiedy updateowac window"""

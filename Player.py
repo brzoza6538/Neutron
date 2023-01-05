@@ -24,7 +24,7 @@ class Player:
 
         if ((XCheck + x > (self._Window.numOfSpaces - 1)) or (YCheck + y > (self._Window.numOfSpaces - 1)) or (XCheck + x < 0) or (YCheck + y < 0)):
             return False
-        elif (self._Board[XCheck + x][YCheck + y] is not None):
+        elif (self._Board.isFull(XCheck + x, YCheck + y)):
             return False
         return True
 
@@ -35,8 +35,9 @@ class Player:
         while True:
             if ((XCheck + x > (self._Window.numOfSpaces - 1)) or (YCheck + y > (self._Window.numOfSpaces - 1)) or (XCheck + x < 0) or (YCheck + y < 0)):
                 break
-            elif (self._Board[XCheck + x][YCheck + y] is not None):
+            elif (self._Board.isFull(XCheck + x, YCheck + y)):
                 break
+            # @TODO wstaw tam isMovePossible
 
             XCheck += x
             YCheck += y
@@ -49,32 +50,17 @@ class Player:
         while True:
             if ((XCheck + x > (self._Window.numOfSpaces - 1)) or (YCheck + y > (self._Window.numOfSpaces - 1)) or (XCheck + x < 0) or (YCheck + y < 0)):
                 break
-            elif (self._Board[XCheck + x][YCheck + y] is not None):
+            elif (self._Board.isFull(XCheck + x, YCheck + y)):
                 break
+            # @TODO wstaw tam isMovePossible
 
             XCheck += x
             YCheck += y
 
-        self._Board[pawn._X][pawn._Y] = None
-        self._Board[XCheck][YCheck] = pawn.type
+        self._Board.clearSpace(pawn._X, pawn._Y)
+        self._Board.setSpace(XCheck, YCheck, pawn.type)
 
         pawn.move(XCheck, YCheck)
-
-    def ShowLine(self, pawn, dirX, dirY):
-        self._Window._Canvas.delete(self._line)
-
-        x, y = self.MoveToWhere(pawn, dirX, dirY)
-
-        fieldsize = self._Window._FrameWidth + self._Window._FieldSize
-
-        self._line = self._Window._Canvas.create_line(
-            pawn.X * fieldsize + fieldsize/2,
-            pawn.Y * fieldsize + fieldsize/2,
-            x * fieldsize + fieldsize/2,
-            y * fieldsize + fieldsize/2,
-            fill="Red",
-            width=5
-        )
 
     def Update(self):
         pass

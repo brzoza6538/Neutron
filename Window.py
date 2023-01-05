@@ -12,10 +12,10 @@ class Window:
         self._WindowHeight = ((self._numOfSpaces*self._FieldSize) + (self._FrameWidth*(self._numOfSpaces+1)))
 
         self._BallRadius = int(self._FieldSize/2) - 6
-
+        self._speed = 2
         # Window
         self._Window = tkinter.Tk()
-        self._Window.title("Python Guides")
+        self._Window.title("Neutron")
         self._Window.geometry(f'{self._WindowWidth}x{self._WindowHeight}')
         # canvas
         self._Canvas = tkinter.Canvas(self._Window)
@@ -98,6 +98,8 @@ class Window:
     def move(self, pawn, x, y):
         x = self.FieldsIntoPix(x)
         y = self.FieldsIntoPix(y)
+
+        # @ TODO gładko przeprowadzić pionka z animacja
         self._Canvas.move(pawn, x, y)
 
     def CreatePawn(self, type, x, y):

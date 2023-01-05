@@ -17,6 +17,22 @@ class PlayablePlayer(Player):
             self._Window._Canvas.itemconfig(pawn._pawn, fill=pawn._color)
             return False
 
+    def ShowLine(self, pawn, dirX, dirY):
+        self._Window._Canvas.delete(self._line)
+
+        x, y = self.MoveToWhere(pawn, dirX, dirY)
+
+        fieldsize = self._Window._FrameWidth + self._Window._FieldSize
+
+        self._line = self._Window._Canvas.create_line(
+            pawn.X * fieldsize + fieldsize/2,
+            pawn.Y * fieldsize + fieldsize/2,
+            x * fieldsize + fieldsize/2,
+            y * fieldsize + fieldsize/2,
+            fill="Red",
+            width=5
+        )
+
     def move(self, pawn, x, y):
         Player.move(self, pawn, x, y)
         self._Window._Canvas.delete(self._line)
