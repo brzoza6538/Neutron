@@ -8,7 +8,6 @@ class Player:
         self._Pawns = Pawns
         self._Neutron = Neutron
 
-        self._usedPawn = None
         self._pawnMoved = False
         self._neutronMoved = False
         self._line = None
@@ -24,6 +23,18 @@ class Player:
     #     elif (self._Board.isFull(pawn.X + x, pawn.Y + y)):
     #         return False
     #     return True
+
+    def isNeutronMovable(self):
+        x0 = self._Neutron.X
+        y0 = self._Neutron.Y
+
+        for dirX in [-1, 0, 1]:
+            for dirY in [-1, 0, 1]:
+                if ((x0 + dirX > (self._Window.numOfSpaces - 1)) or (y0 + dirY > (self._Window.numOfSpaces - 1)) or (x0 + dirX < 0) or (y0 + dirY < 0)):
+                    pass
+                elif (not self._Board.isFull(x0 + dirX, y0 + dirY)):
+                    return True
+        return False
 
     def IsMoveInDirPossible(self, x0, y0, dirX, dirY):
         """sprawdza czy ruch możliwy, ruch o 0 pól oznacza że niemożliwy"""

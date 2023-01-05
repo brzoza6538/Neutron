@@ -5,6 +5,7 @@ class PlayablePlayer(Player):
 
     def __init__(self, Window, Neutron, Pawns, Board):
         super().__init__(Window, Neutron, Pawns, Board)
+        self._usedPawn = None
 
     def isMouseOnPawn(self, pawn):
         if (
