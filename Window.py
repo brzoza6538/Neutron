@@ -1,4 +1,5 @@
 import tkinter
+import time
 
 
 class Window:
@@ -12,7 +13,8 @@ class Window:
         self._WindowHeight = ((self._numOfSpaces*self._FieldSize) + (self._FrameWidth*(self._numOfSpaces+1)))
 
         self._BallRadius = int(self._FieldSize/2) - 6
-        self._speed = 2
+        self.betweenStepsDelay = 0.02
+        self._speed = 9
         # Window
         self._Window = tkinter.Tk()
         self._Window.title("Neutron")
@@ -99,8 +101,38 @@ class Window:
         x = self.FieldsIntoPix(x)
         y = self.FieldsIntoPix(y)
 
-        # @ TODO gładko przeprowadzić pionka z animacja
-        self._Canvas.move(pawn, x, y)
+        x0 = 0
+        y0 = 0
+
+        dirX = 0
+        dirY = 0
+
+        if (x0 > x):
+            dirX -= 1
+        elif (x0 < x):
+            dirX += 1
+
+        if (y0 > y):
+            dirY -= 1
+        elif (y0 < y):
+            dirY += 1
+
+        # używaj tylko dzielników self._FrameWidth + self._FieldSize żeby nie zaokrąglało
+
+        # @TODO animacja zamiast przeskoku
+        while (abs(abs(x0) - abs(x)) > abs(self._speed) or abs(abs(y0) - abs(y)) > abs(self._speed)):
+            x0 += dirX * self._speed
+            y0 += dirY * self._speed
+
+            time.sleep(self.betweenStepsDelay)
+            self._Canvas.move(pawn._pawn, dirX*self._speed, dirY*self._speed)
+            self.Update()
+
+        # abominacjax = abs(abs(x0) - abs(x))
+        # abominacjay = abs(abs(y0) - abs(y))
+        self._Canvas.move(pawn._pawn, dirX*(abs(abs(x0) - abs(x))), dirY*(abs(abs(y0) - abs(y))))
+        self.Update()
+        # self._Canvas.move(pawn, x, y)
 
     def CreatePawn(self, type, x, y):
         starter = self._FrameWidth + int(self._FieldSize / 2)
@@ -117,15 +149,11 @@ class Window:
 
         return pawn
 
-    def Render(self):
-        # tlo
-        self.SetFrame()
-        # jednostki
-
     def on_closing(self):
         self._Window.destroy()
 
     def Update(self):
+
         self._Window.update()
 
         # self._Canvas.delete('all')

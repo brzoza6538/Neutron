@@ -7,7 +7,7 @@ class Pawn:
         self._Y = y
         self._type = "random"
         self._color = "Green"
-
+        self._pawn = None
         self._Window = Window
 
     def Update(self):
@@ -27,7 +27,7 @@ class Pawn:
 
     def move(self, x, y):
         """na jakie pole (x,y) poruszyć"""
-        self._Window.move(self._pawn, x - self._X, y - self._Y)
+        self._Window.move(self, x - self._X, y - self._Y)
         self._X = x
         self._Y = y
     # do użycia gdzieś indziej

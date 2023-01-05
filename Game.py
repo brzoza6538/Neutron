@@ -15,6 +15,8 @@ class Game:
         self._EnemyPawns = []
         self._PlayerPawns = []
 
+        self._Window.SetFrame()
+
         if (type == 1):
             for x in range(self._Window.numOfSpaces):
                 self._EnemyPawns.append(Pawns.AIPawn(Window, x, 0))
@@ -56,4 +58,4 @@ class Game:
                 time.sleep(0.5)
                 self._randEnemy.Update()
 
-        print(self._Board)
+        self._Window.Update()
