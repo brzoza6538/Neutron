@@ -1,8 +1,5 @@
-import Window
-
-
 class Player:
-    def __init__(self, Window: Window, Neutron, Pawns, Board):
+    def __init__(self, Window, Neutron, Pawns, Board):
         self._Window = Window
         self._Board = Board
         self._Pawns = Pawns
@@ -20,7 +17,11 @@ class Player:
 
     def IsMoveInDirPossible(self, x0, y0, dirX, dirY):
         """sprawdza czy ruch możliwy, ruch o 0 pól oznacza że niemożliwy"""
-        if ((x0 + dirX > (self._Window.numOfSpaces - 1)) or (y0 + dirY > (self._Window.numOfSpaces - 1)) or (x0 + dirX < 0) or (y0 + dirY < 0)):
+        if (
+            (x0 + dirX > (self._Window.numOfSpaces - 1)) or
+            (y0 + dirY > (self._Window.numOfSpaces - 1)) or
+            (x0 + dirX < 0) or (y0 + dirY < 0)
+                ):
             return False
         elif (self._Board.isFull(x0 + dirX, y0 + dirY)):
             return False

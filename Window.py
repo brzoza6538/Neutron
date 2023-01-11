@@ -9,8 +9,14 @@ class Window:
         self._numOfSpaces = 7  # musi być nieparzyste
         self._FrameWidth = 5
         self._FieldSize = 50
-        self._WindowWidth = ((self._numOfSpaces*self._FieldSize) + (self._FrameWidth*(self._numOfSpaces+1)))
-        self._WindowHeight = ((self._numOfSpaces*self._FieldSize) + (self._FrameWidth*(self._numOfSpaces+1)))
+        self._WindowWidth = (
+            (self._numOfSpaces*self._FieldSize) +
+            (self._FrameWidth*(self._numOfSpaces+1))
+            )
+        self._WindowHeight = (
+            (self._numOfSpaces*self._FieldSize) +
+            (self._FrameWidth*(self._numOfSpaces+1))
+            )
 
         self._BallRadius = int(self._FieldSize/2) - 6
         self.betweenStepsDelay = 0.02
@@ -116,7 +122,10 @@ class Window:
         elif (y0 < y):
             dirY += 1
 
-        while (abs(abs(x0) - abs(x)) > abs(self._speed) or abs(abs(y0) - abs(y)) > abs(self._speed)):
+        while (
+            abs(abs(x0) - abs(x)) > abs(self._speed) or
+            abs(abs(y0) - abs(y)) > abs(self._speed)
+                ):
             x0 += dirX * self._speed
             y0 += dirY * self._speed
 
@@ -124,8 +133,24 @@ class Window:
             self._Canvas.move(pawn._pawn, dirX*self._speed, dirY*self._speed)
             self.Update()
 
-        self._Canvas.move(pawn._pawn, dirX*(abs(abs(x0) - abs(x))), dirY*(abs(abs(y0) - abs(y))))
+        self._Canvas.move(
+            pawn._pawn, dirX*(abs(abs(x0) - abs(x))),
+            dirY*(abs(abs(y0) - abs(y)))
+            )
         self.Update()
+
+    def CreateBoard(self):
+        Board = [
+            [None for x in range(self.numOfSpaces)]
+            for y in range(self.numOfSpaces)
+            ]
+
+        return Board
+
+    def PrintMiddleText(self, message):
+        self._Canvas.create_text(
+            self.size/2, self.size/2, text=message,
+            fill="Yellow", font=('Helvetica 25 bold'))
 
     def CreatePawn(self, type, x, y):
         starter = self._FrameWidth + int(self._FieldSize / 2)

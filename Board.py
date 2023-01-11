@@ -1,9 +1,7 @@
-
-
 class Board:
     def __init__(self, Window):
         self._Window = Window
-        self._Board = [[None for x in range(self._Window.numOfSpaces)] for y in range(self._Window.numOfSpaces)]
+        self._Board = self._Window.CreateBoard()
 
     def setSpace(self, x, y, type):
         self._Board[x][y] = type

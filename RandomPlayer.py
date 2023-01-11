@@ -15,7 +15,9 @@ class RandomPlayer(Player):
             # usedPawn = self._Pawns[data]
             # dirX = int(input())
             # dirY = int(input())
-            usedPawn = self._Pawns[random.randint(0,  (self._Window.numOfSpaces - 1))]
+            usedPawn = self._Pawns[
+                random.randint(0,  (self._Window.numOfSpaces - 1))
+                ]
             dirX = random.randint(-1, 1)
             dirY = random.randint(-1, 1)
 
@@ -32,7 +34,9 @@ class RandomPlayer(Player):
             # dirX = int(input())
             # dirY = int(input())
 
-            if (self.IsMoveInDirPossible(self._Neutron.X, self._Neutron.Y, dirX, dirY)):
+            if (self.IsMoveInDirPossible(
+                self._Neutron.X, self._Neutron.Y, dirX, dirY
+                    )):
                 self.move(self._Neutron, dirX, dirY)
                 break
 

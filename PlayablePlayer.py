@@ -34,10 +34,6 @@ class PlayablePlayer(Player):
             width=5
         )
 
-    def move(self, pawn, x, y):
-        self._Window._Canvas.delete(self._line)
-        Player.move(self, pawn, x, y)
-
     def turn(self, pawn):
         """zwraca prawda/fałsz czy pionek sie poruszył"""
 
@@ -55,6 +51,7 @@ class PlayablePlayer(Player):
 
         if (self._Window.CheckClicked() is True):
             if (self.IsMoveInDirPossible(pawn.X, pawn.Y, dirX, dirY)):
+                self._Window._Canvas.delete(self._line)
                 self.move(pawn, dirX, dirY)
                 return True
         return False
