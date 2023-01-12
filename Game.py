@@ -72,8 +72,6 @@ class Game:
         elif (self._Neutron._Y == 0 or self._randEnemy._immobileNeutron):
             return self._player
 
-        self._Window.Update()
-
     def ShowWhoWon(self):
         if (
             self._Neutron._Y == (self._Window.numOfSpaces - 1)
