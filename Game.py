@@ -18,6 +18,7 @@ class Game:
         self._whoseTurn = "player"  # or enemy
         self._Window.SetFrame()
         self.SetPawns()
+        self.SetPlayers()
 
     def SetPawns(self):
         rowLen = self._Window.numOfSpaces
@@ -42,6 +43,7 @@ class Game:
         self._Neutron = Pawns.NeutronPawn(self._Window, middle, middle)
         self._Board.setSpace(middle, middle,  self._Neutron.type)
 
+    def SetPlayers(self):
         self._player = PlayablePlayer.PlayablePlayer(
             self._Window, self._Neutron, self._PlayerPawns, self._Board
             )
@@ -66,6 +68,17 @@ class Game:
             self._Neutron._Y == (self._Window.numOfSpaces - 1)
             or self._player._immobileNeutron
                 ):
+            return self._randEnemy
+        elif (self._Neutron._Y == 0 or self._randEnemy._immobileNeutron):
+            return self._player
+
+        self._Window.Update()
+
+    def ShowWhoWon(self):
+        if (
+            self._Neutron._Y == (self._Window.numOfSpaces - 1)
+            or self._player._immobileNeutron
+                ):
             self._Window.PrintMiddleText("PRZEGRAŁEŚ")
         elif (self._Neutron._Y == 0 or self._randEnemy._immobileNeutron):
             self._Window.PrintMiddleText("WYGRAŁEś")
@@ -73,8 +86,6 @@ class Game:
         self._Window.Update()
 
     def Update(self):
-        self._Window.Update()
-
         if not self.checkIfEnd() and self._whoseTurn == "player":
             self._player.Update()
             if (self._player.isTurnFinished()):

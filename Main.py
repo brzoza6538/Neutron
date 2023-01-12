@@ -2,16 +2,17 @@ from Window import Window
 from Game import Game
 import time
 
-Window = Window()
+window = Window()
 
-Game = Game(Window, 1)
+game = Game(window, 1)
 
 while True:
-    Game.Update()
-    if Game.checkIfEnd():
-        Game.WhoWon()
+    window.Update()
+    game.Update()
+    if game.checkIfEnd():
+        game.ShowWhoWon()
         time.sleep(2)
-        Window.on_closing()
+        window.on_closing()
         break
 """
 The object of the game is to move the neutron into your home row, cause your

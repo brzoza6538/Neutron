@@ -151,6 +151,7 @@ class Window:
         self._Canvas.create_text(
             self.size/2, self.size/2, text=message,
             fill="Yellow", font=('Helvetica 25 bold'))
+        self.Update()
 
     def CreatePawn(self, type, x, y):
         starter = self._FrameWidth + int(self._FieldSize / 2)
