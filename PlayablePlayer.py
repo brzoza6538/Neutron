@@ -1,83 +1,47 @@
 from Player import Player
+from PlayablePlayer_gui import PlayablePlayer_gui
 
 
 class PlayablePlayer(Player):
-
     def __init__(self, Window, Neutron, Pawns, Board):
         super().__init__(Window, Neutron, Pawns, Board)
-        self._usedPawn = None
+        self._gui = PlayablePlayer_gui(self._Window)
 
-    def isMouseOnPawn(self, pawn):
-        if (
-            self._Window.MouseX == pawn._X and
-            self._Window.MouseY == pawn._Y
-        ):
-            self._Window._Canvas.itemconfig(pawn._pawn, fill="Orange")
-            return True
-        else:
-            self._Window._Canvas.itemconfig(pawn._pawn, fill=pawn._color)
-            return False
-
-    def ShowLine(self, pawn, dirX, dirY):
-        self._Window._Canvas.delete(self._line)
-
-        x, y = self.MoveToWhere(pawn, dirX, dirY)
-
-        fieldsize = self._Window._FrameWidth + self._Window._FieldSize
-
-        self._line = self._Window._Canvas.create_line(
-            pawn.X * fieldsize + fieldsize/2,
-            pawn.Y * fieldsize + fieldsize/2,
-            x * fieldsize + fieldsize/2,
-            y * fieldsize + fieldsize/2,
-            fill="Red",
-            width=5
-        )
-
-    def turn(self, pawn):
-        """zwraca prawda/fałsz czy pionek sie poruszył"""
-
-        dirX = self._Window.MouseX - pawn._X
+    def turn(self):
+        pawn = self._usedPawn
+        dirX = self._gui.MouseX - pawn._X
         if dirX > 0:
             dirX = 1
         if dirX < 0:
             dirX = -1
-        dirY = self._Window.MouseY - pawn._Y
+        dirY = self._gui.MouseY - pawn._Y
         if dirY > 0:
             dirY = 1
         if dirY < 0:
             dirY = -1
-        self.ShowLine(pawn, dirX, dirY)
 
-        if (self._Window.CheckClicked() is True):
+        x1, y1 = self.MoveToWhere(pawn, dirX, dirY)
+        self._gui.ShowLine(pawn.X, pawn.Y, x1, y1)
+
+        if (self._gui.CheckClicked()):
             if (self.IsMoveInDirPossible(pawn.X, pawn.Y, dirX, dirY)):
-                self._Window._Canvas.delete(self._line)
+                self._gui.DelLine()
                 self.move(pawn, dirX, dirY)
-                return True
-        return False
+                self._usedPawn = None
 
-    def isTurnFinished(self):
-        if (self._neutronMoved and self._pawnMoved):
-            self._neutronMoved = False
-            self._pawnMoved = False
-            self._usedPawn = None
-            return True
-        else:
-            return False
+    def choosePawn(self):
+        for pawn in self._Pawns:
+            if (self._gui.PawnClickedOn(pawn)):
+                self._usedPawn = pawn
 
     def Update(self):
-        if (not self._pawnMoved):
-            for pawn in self._Pawns:
-                if (self.isMouseOnPawn(pawn) and self._Window.CheckClicked()):
-                    self._usedPawn = pawn
 
+        if (not self._pawnMoved):
+            self.choosePawn()
             if (self._usedPawn is not None):
-                self._pawnMoved = self.turn(self._usedPawn)
+                self.turn()
 
         if (self.isNeutronMovable()):
             if (not self._neutronMoved and self._pawnMoved):
-                self._neutronMoved = self.turn(self._Neutron)
-        else:
-            self._immobileNeutron = True
-
-        self._Window.Update()
+                self._usedPawn = self._Neutron
+                self.turn()

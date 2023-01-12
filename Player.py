@@ -4,10 +4,10 @@ class Player:
         self._Board = Board
         self._Pawns = Pawns
         self._Neutron = Neutron
+        self._usedPawn = None
 
         self._pawnMoved = False
         self._neutronMoved = False
-        self._line = None
 
         self._immobileNeutron = False
 
@@ -34,6 +34,7 @@ class Player:
             for dirY in [-1, 0, 1]:
                 if (self.IsMoveInDirPossible(x0, y0, dirX, dirY)):
                     return True
+        self._immobileNeutron = True
         return False
 
     def MoveToWhere(self, pawn, x, y):
@@ -51,6 +52,10 @@ class Player:
 
     def move(self, pawn, x, y):
         """x, y przyjmuja wartość -1, 0, 1"""
+        if (pawn.type == "Neutron"):
+            self._neutronMoved = True
+        else:
+            self._pawnMoved = True
 
         stepX, stepY = self.MoveToWhere(pawn, x, y)
 
@@ -58,6 +63,14 @@ class Player:
         self._Board.setSpace(stepX, stepY, pawn.type)
 
         pawn.move(stepX, stepY)
+
+    def isTurnFinished(self):
+        if (self._neutronMoved and self._pawnMoved):
+            self._neutronMoved = False
+            self._pawnMoved = False
+            return True
+        else:
+            return False
 
     def Update(self):
         pass

@@ -15,7 +15,7 @@ class Game:
         self._EnemyPawns = []
         self._PlayerPawns = []
         self._winner = None
-
+        self._whoseTurn = "player"  # or enemy
         self._Window.SetFrame()
         self.SetPawns()
 
@@ -73,12 +73,15 @@ class Game:
         self._Window.Update()
 
     def Update(self):
-        if not self.checkIfEnd():
-            self._player.Update()
+        self._Window.Update()
 
-        if not self.checkIfEnd():
+        if not self.checkIfEnd() and self._whoseTurn == "player":
+            self._player.Update()
             if (self._player.isTurnFinished()):
                 time.sleep(0.5)
-                self._randEnemy.Update()
+                self._whoseTurn = "enemy"
 
-        self._Window.Update()
+        if not self.checkIfEnd() and self._whoseTurn == "enemy":
+            self._randEnemy.Update()
+            if (self._randEnemy.isTurnFinished()):
+                self._whoseTurn = "player"

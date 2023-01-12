@@ -6,7 +6,7 @@ class Window:
 
     def __init__(self) -> None:
         # constants
-        self._numOfSpaces = 7  # musi być nieparzyste
+        self._numOfSpaces = 7  # must be odd
         self._FrameWidth = 5
         self._FieldSize = 50
         self._WindowWidth = (
@@ -19,7 +19,7 @@ class Window:
             )
 
         self._BallRadius = int(self._FieldSize/2) - 6
-        self.betweenStepsDelay = 0.02
+        self.betweenStepsDelay = 0.01
         self._speed = 9
         # Window
         self._Window = tkinter.Tk()
@@ -171,5 +171,4 @@ class Window:
         self._Window.destroy()
 
     def Update(self):
-
         self._Window.update()

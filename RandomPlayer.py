@@ -3,49 +3,27 @@ import random
 
 
 class RandomPlayer(Player):
+    def ruch(self):
+        dirX = random.randint(-1, 1)
+        dirY = random.randint(-1, 1)
 
-    def __init__(self, Window, Neutron, Pawns, Board):
-        super().__init__(Window, Neutron, Pawns, Board)
+        if (self.IsMoveInDirPossible(
+            self._usedPawn.X, self._usedPawn.Y, dirX, dirY
+                )):
+            self.move(self._usedPawn, dirX, dirY)
 
-    def pawnTurn(self):
-
-        while True:
-            # print("pawn:")
-            # data = int(input())
-            # usedPawn = self._Pawns[data]
-            # dirX = int(input())
-            # dirY = int(input())
-            usedPawn = self._Pawns[
-                random.randint(0,  (self._Window.numOfSpaces - 1))
-                ]
-            dirX = random.randint(-1, 1)
-            dirY = random.randint(-1, 1)
-
-            if (self.IsMoveInDirPossible(usedPawn.X, usedPawn.Y, dirX, dirY)):
-                self.move(usedPawn, dirX, dirY)
-                break
-
-    def neutronTurn(self):
-
-        while True:
-            dirX = random.randint(-1, 1)
-            dirY = random.randint(-1, 1)
-            # print("neutron:")
-            # dirX = int(input())
-            # dirY = int(input())
-
-            if (self.IsMoveInDirPossible(
-                self._Neutron.X, self._Neutron.Y, dirX, dirY
-                    )):
-                self.move(self._Neutron, dirX, dirY)
-                break
+    def choosePawn(self):
+        self._usedPawn = self._Pawns[
+            random.randint(0,  (self._Window.numOfSpaces - 1))]
 
     def Update(self):
-        self._Window._Canvas.delete(self._line)
 
-        self.pawnTurn()
+        if (not self._pawnMoved):
+            self.choosePawn()
+            if (self._usedPawn is not None):
+                self.ruch()
 
         if (self.isNeutronMovable()):
-            self.neutronTurn()
-        else:
-            self._immobileNeutron = False
+            if (not self._neutronMoved and self._pawnMoved):
+                self._usedPawn = self._Neutron
+                self.ruch()
