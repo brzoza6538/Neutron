@@ -49,7 +49,8 @@ class AIPlayer(Player):
         for dirX in [-1, 0, 1]:
             for dirY in [-1, 0, 1]:
                 stepY = self.MoveToWhere(self._usedPawn, dirX, dirY)[1]
-                if ((self._loc == "bottom" and stepY == 0) or (self._loc == "top" and stepY == self._RowLen - 1)):
+                if ((self._loc == "bottom" and stepY == 0)
+                        or (self._loc == "top" and stepY == self._RowLen - 1)):
                     return dirX, dirY
         return None, None
 

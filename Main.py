@@ -1,13 +1,12 @@
 from Window import Window
 from Game import Game
 import time
-from PlayablePlayer import PlayablePlayer
 
-RowLen = 7  # num of tiles in a row - must be odd
+RowLen = 5  # num of tiles in a row - must be odd
 
 window = Window(RowLen)
 
-game = Game(RowLen, window, 1)
+game = Game(RowLen, window, "AI")
 window.SetPawns(game.EnemyPawns, game.Neutron, game.PlayerPawns)
 
 while True:
@@ -22,10 +21,8 @@ while True:
         )
 
     if game.checkIfEnd():
-        if (isinstance(game.WhoWon(), PlayablePlayer)):
-            window.PrintMiddleText("WYGRAŁEŚ")
-        else:
-            window.PrintMiddleText("PRZEGRAŁEŚ")
+        winner = (game.WhoWon().loc).upper()
+        window.PrintMiddleText(f"{winner} WINS")
 
         time.sleep(2)
         window.on_closing()

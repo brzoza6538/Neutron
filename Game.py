@@ -8,6 +8,7 @@ import Board
 
 class Game:
     def __init__(self, RowLen, Window, type):
+        """type - "AI" or "rand" or "player" """
         self._type = type
         self._RowLen = RowLen
         self._Board = Board.Board(self._RowLen)
@@ -39,7 +40,7 @@ class Game:
         return self._Neutron
 
     def SetPawns(self):
-        if (self._type == 1):
+        if (self._type == "AI"):
             for x in range(self._RowLen):
                 self._EnemyPawns.append(Pawns.AIPawn(x, 0))
                 self._Board.setSpace(x, 0, self._EnemyPawns[x].type)
@@ -65,7 +66,7 @@ class Game:
             self._RowLen, self._Window, self._Neutron,
             self._PlayerPawns, self._Board, "bottom"
             )
-        if (self._type == 1):
+        if (self._type == "AI"):
             self._enemy = AIPlayer.AIPlayer(
                 self._RowLen, self._Neutron, self._EnemyPawns,
                 self._Board, "top"

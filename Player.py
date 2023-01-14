@@ -13,7 +13,10 @@ class Player:
         self._immobileNeutron = False
 
         self._movedPawn = None
-
+    
+    @property
+    def loc(self):
+        return self._loc
     def Render(self):
         for pawn in range(5):
             self._Pawns[pawn].Update()

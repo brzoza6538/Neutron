@@ -4,7 +4,6 @@ import Pawns
 import RandomPlayer
 import PlayablePlayer
 import random
-import time
 import math
 
 
@@ -37,7 +36,7 @@ def testSurroundedNeutronPlayerLoses(monkeypatch):
     RowLen = 7
     window = Window(RowLen)
 
-    game = Game(RowLen, window, 0)
+    game = Game(RowLen, window, "rand")
     game._whoseTurn = "bottom"
     window.SetPawns(game.EnemyPawns, game.Neutron, game.PlayerPawns)
 
@@ -51,7 +50,7 @@ def testSurroundedNeutronPlayerWins(monkeypatch):
     RowLen = 7
     window = Window(RowLen)
 
-    game = Game(RowLen, window, 0)
+    game = Game(RowLen, window,  "rand")
     game._whoseTurn = "top"
 
     game.Update()
@@ -82,7 +81,7 @@ def testNeutronAtEnemyPlayerTurn(monkeypatch):
     RowLen = 7
     window = Window(RowLen)
 
-    game = Game(RowLen, window, 1)
+    game = Game(RowLen, window, "rand")
     game._whoseTurn = "player"
 
     game.Update()
@@ -97,7 +96,7 @@ def testNeutronAtEnemyEnemyTurn(monkeypatch):
     RowLen = 7
     window = Window(RowLen)
 
-    game = Game(RowLen, window, 1)
+    game = Game(RowLen, window, "rand")
     game._whoseTurn = "enemy"
 
     game.Update()
@@ -129,7 +128,7 @@ def testNeutronAtPlayerPlayerTurn(monkeypatch):
     RowLen = 7
     window = Window(RowLen)
 
-    game = Game(RowLen, window, 0)
+    game = Game(RowLen, window, "rand")
     game._whoseTurn = "player"
 
     game.Update()
@@ -144,7 +143,7 @@ def testNeutronAtPlayerEnemyTurn(monkeypatch):
     RowLen = 7
     window = Window(RowLen)
 
-    game = Game(RowLen, window, 0)
+    game = Game(RowLen, window, "rand")
     game._whoseTurn = "enemy"
 
     game.Update()
@@ -177,7 +176,7 @@ def testBoardPawnsConsistency():
     RowLen = 7
     window = Window(RowLen)
 
-    game = Game(RowLen, window, 0)
+    game = Game(RowLen, window, "rand")
     window.SetPawns(game.EnemyPawns, game.Neutron, game.PlayerPawns)
 
     for i in range(25):
@@ -216,7 +215,7 @@ def testPawnsBoardConsistency():
     RowLen = 7
     window = Window(RowLen)
 
-    game = Game(RowLen, window, 0)
+    game = Game(RowLen, window, "rand")
     window.SetPawns(game.EnemyPawns, game.Neutron, game.PlayerPawns)
 
     for i in range(25):
@@ -279,7 +278,7 @@ def testAIFindingWin_01(monkeypatch):
         RowLen = 7
         window = Window(RowLen)
 
-        game = Game(RowLen, window, 1)
+        game = Game(RowLen, window, "AI")
         window.SetPawns(game.EnemyPawns, game.Neutron, game.PlayerPawns)
 
         game._enemy.Update()
@@ -327,7 +326,7 @@ def testAIFindingWin_11(monkeypatch):
         RowLen = 7
         window = Window(RowLen)
 
-        game = Game(RowLen, window, 1)
+        game = Game(RowLen, window, "AI")
         window.SetPawns(game.EnemyPawns, game.Neutron, game.PlayerPawns)
 
         game._enemy.Update()
@@ -367,7 +366,7 @@ def testNotLoosingAbility(monkeypatch):
         RowLen = 7
         window = Window(RowLen)
 
-        game = Game(RowLen, window, 1)
+        game = Game(RowLen, window, "AI")
         window.SetPawns(game.EnemyPawns, game.Neutron, game.PlayerPawns)
 
         game._enemy.Update()
