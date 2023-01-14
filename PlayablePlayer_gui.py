@@ -19,7 +19,7 @@ class PlayablePlayer_gui():
             self._Window.changePawnColor(pawn, "Orange")
             return True
         else:
-            self._Window.changePawnColor(pawn, pawn._color)
+            self._Window.changePawnColor(pawn, pawn.color)
             return False
 
     def ShowLine(self, x0, y0, x1, y1):

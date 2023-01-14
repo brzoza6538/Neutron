@@ -31,7 +31,6 @@ while True:
         window.on_closing()
         break
 
-
 """
 The object of the game is to move the neutron into your home row, cause your
 opponent to move the neutron into your home row, or to block the neutron

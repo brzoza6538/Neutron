@@ -3,8 +3,8 @@ import random
 
 
 class RandomPlayer(Player):
-    def __init__(self, RowLen, Neutron, Pawns, Board):
-        super().__init__(RowLen, Neutron, Pawns, Board)
+    def __init__(self, RowLen, Neutron, Pawns, Board, loc):
+        super().__init__(RowLen, Neutron, Pawns, Board, loc)
         self._timer = 0
 
     def randomMove(self):
@@ -14,7 +14,7 @@ class RandomPlayer(Player):
         if (self.IsMoveInDirPossible(
             self._usedPawn.X, self._usedPawn.Y, dirX, dirY
                 )):
-            self.move(self._usedPawn, dirX, dirY)
+            self.move(dirX, dirY)
 
     def choosePawn(self):
         self._usedPawn = self._Pawns[

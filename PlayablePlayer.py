@@ -3,8 +3,8 @@ from PlayablePlayer_gui import PlayablePlayer_gui
 
 
 class PlayablePlayer(Player):
-    def __init__(self, RowLen, Window, Neutron, Pawns, Board):
-        super().__init__(RowLen, Neutron, Pawns, Board)
+    def __init__(self, RowLen, Window, Neutron, Pawns, Board, loc):
+        super().__init__(RowLen, Neutron, Pawns, Board, loc)
         self._Window = Window
         self._gui = PlayablePlayer_gui(self._Window)
 
@@ -27,7 +27,7 @@ class PlayablePlayer(Player):
         if (self._gui.CheckClicked()):
             if (self.IsMoveInDirPossible(pawn.X, pawn.Y, dirX, dirY)):
                 self._gui.DelLine()
-                self.move(pawn, dirX, dirY)
+                self.move(dirX, dirY)
                 self._usedPawn = None
 
     def choosePawn(self):

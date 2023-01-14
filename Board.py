@@ -11,8 +11,8 @@ class Board:
 
         return Board
 
-    def setSpace(self, x, y, color):
-        self._Board[x][y] = color
+    def setSpace(self, x, y, type):
+        self._Board[x][y] = type
 
     def clearSpace(self, x, y):
         self._Board[x][y] = None

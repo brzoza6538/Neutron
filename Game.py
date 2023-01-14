@@ -1,20 +1,21 @@
 import Pawns
 import PlayablePlayer
 import RandomPlayer
+import AIPlayer
 import math
 import Board
 
 
 class Game:
     def __init__(self, RowLen, Window, type):
-
+        self._type = type
         self._RowLen = RowLen
         self._Board = Board.Board(self._RowLen)
         self._Window = Window
         self._EnemyPawns = []
         self._PlayerPawns = []
         self._winner = None
-        self._whoseTurn = "player"  # or enemy
+        self._whoseTurn = "bottom"  # or enemy
         self.SetPawns()
         self.SetPlayers()
         self._movedPawn = None
@@ -38,35 +39,42 @@ class Game:
         return self._Neutron
 
     def SetPawns(self):
-        if (type == 1):
+        if (self._type == 1):
             for x in range(self._RowLen):
                 self._EnemyPawns.append(Pawns.AIPawn(x, 0))
-                self._Board.setSpace(x, 0, self._EnemyPawns[x].color)
+                self._Board.setSpace(x, 0, self._EnemyPawns[x].type)
         else:
             for x in range(self._RowLen):
                 self._EnemyPawns.append(Pawns.RandomPawn(x, 0))
-                self._Board.setSpace(x, 0, self._EnemyPawns[x].color)
+                self._Board.setSpace(x, 0, self._EnemyPawns[x].type)
 
         for x in range(self._RowLen):
             self._PlayerPawns.append(
                 Pawns.PlayerPawn(x, (self._RowLen - 1))
                 )
             self._Board.setSpace(
-                x, (self._RowLen - 1), self._PlayerPawns[x].color
+                x, (self._RowLen - 1), self._PlayerPawns[x].type
                 )
 
         middle = math.floor(self._RowLen/2)
         self._Neutron = Pawns.NeutronPawn(middle, middle)
-        self._Board.setSpace(middle, middle,  self._Neutron.color)
+        self._Board.setSpace(middle, middle,  self._Neutron.type)
 
     def SetPlayers(self):
         self._player = PlayablePlayer.PlayablePlayer(
             self._RowLen, self._Window, self._Neutron,
-            self._PlayerPawns, self._Board
+            self._PlayerPawns, self._Board, "bottom"
             )
-        self._enemy = RandomPlayer.RandomPlayer(
-            self._RowLen, self._Neutron, self._EnemyPawns, self._Board
-            )
+        if (self._type == 1):
+            self._enemy = AIPlayer.AIPlayer(
+                self._RowLen, self._Neutron, self._EnemyPawns,
+                self._Board, "top"
+                )
+        else:
+            self._enemy = RandomPlayer.RandomPlayer(
+                self._RowLen, self._Neutron, self._EnemyPawns,
+                self._Board, "top"
+                )
 
     def checkIfEnd(self):
         if (
@@ -101,14 +109,14 @@ class Game:
             self._movedPawn = None
 
     def Update(self):
-        if not self.checkIfEnd() and self._whoseTurn == "player":
+        if not self.checkIfEnd() and self._whoseTurn == "bottom":
             self._player.Update()
             if (self._player.isTurnFinished()):
-                self._whoseTurn = "enemy"
+                self._whoseTurn = "top"
 
-        elif not self.checkIfEnd() and self._whoseTurn == "enemy":
+        elif not self.checkIfEnd() and self._whoseTurn == "top":
             self._enemy.Update()
             if (self._enemy.isTurnFinished()):
-                self._whoseTurn = "player"
+                self._whoseTurn = "bottom"
 
         self.whatMoved()
