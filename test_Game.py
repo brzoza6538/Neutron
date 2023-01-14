@@ -158,17 +158,14 @@ def usePawn(pawn, game, window):
         dirX = random.randint(-1, 1)
         dirY = random.randint(-1, 1)
 
-        if (game._enemy.IsMoveInDirPossible(used_pawn.X, used_pawn.Y, dirX, dirY)):
+        if (game._enemy.IsMoveInDirPossible(
+                used_pawn.X, used_pawn.Y, dirX, dirY)):
 
             game._enemy.move(used_pawn, dirX, dirY)
             break
 
 
 def testBoardPawnsConsistency():
-    # losujesz n ruchów
-    # sprawdzasz lokalizacje pionków względem planszy
-    # sprawdzas ile niepustych pól na planszy ile pionków jednego rodzaju ile drugiego
-
     RowLen = 7
     window = Window(RowLen)
 
@@ -198,12 +195,16 @@ def testBoardPawnsConsistency():
             else:
                 EmptySpacesCounter += 1
 
-    var = (playerPawnsCounter == RowLen and enemyPawnsCounter == RowLen and neutronCounter == 1 and EmptySpacesCounter == ((RowLen - 2) * RowLen) - 1)
+    var = (playerPawnsCounter == RowLen and
+           enemyPawnsCounter == RowLen and
+           neutronCounter == 1 and
+           EmptySpacesCounter == ((RowLen - 2) * RowLen) - 1
+           )
+
     assert var is True
 
 
 def testPawnsBoardConsistency():
-    # jeden losowy pionek otocznony i ma sie ruszyc
     RowLen = 7
     window = Window(RowLen)
 

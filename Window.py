@@ -93,7 +93,8 @@ class Window:
         for pawn in playerPawns:
             self._pawns[pawn] = self.CreatePawn(pawn.color, pawn.X, pawn.Y)
 
-        self._pawns[neutron] = self.CreatePawn(neutron.color, neutron.X, neutron.Y)
+        self._pawns[neutron] = self.CreatePawn(
+            neutron.color, neutron.X, neutron.Y)
 
     def changePawnColor(self, pawn, color):
         gPawn = self._pawns[pawn]

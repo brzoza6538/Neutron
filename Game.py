@@ -1,7 +1,6 @@
 import Pawns
 import PlayablePlayer
 import RandomPlayer
-import time
 import math
 import Board
 
@@ -62,7 +61,8 @@ class Game:
 
     def SetPlayers(self):
         self._player = PlayablePlayer.PlayablePlayer(
-            self._RowLen, self._Window, self._Neutron, self._PlayerPawns, self._Board
+            self._RowLen, self._Window, self._Neutron,
+            self._PlayerPawns, self._Board
             )
         self._enemy = RandomPlayer.RandomPlayer(
             self._RowLen, self._Neutron, self._EnemyPawns, self._Board
