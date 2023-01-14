@@ -1,10 +1,18 @@
 class Board:
-    def __init__(self, Window):
-        self._Window = Window
-        self._Board = self._Window.CreateBoard()
+    def __init__(self, RowLen):
+        self._RowLen = RowLen
+        self._Board = self.CreateBoard()
 
-    def setSpace(self, x, y, type):
-        self._Board[x][y] = type
+    def CreateBoard(self):
+        Board = [
+            [None for x in range(self._RowLen)]
+            for y in range(self._RowLen)
+            ]
+
+        return Board
+
+    def setSpace(self, x, y, color):
+        self._Board[x][y] = color
 
     def clearSpace(self, x, y):
         self._Board[x][y] = None

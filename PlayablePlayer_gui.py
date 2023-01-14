@@ -16,10 +16,10 @@ class PlayablePlayer_gui():
             self._Window.MouseX == pawn._X and
             self._Window.MouseY == pawn._Y
         ):
-            self._Window._Canvas.itemconfig(pawn._pawn, fill="Orange")
+            self._Window.changePawnColor(pawn, "Orange")
             return True
         else:
-            self._Window._Canvas.itemconfig(pawn._pawn, fill=pawn._color)
+            self._Window.changePawnColor(pawn, pawn._color)
             return False
 
     def ShowLine(self, x0, y0, x1, y1):

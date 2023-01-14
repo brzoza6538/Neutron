@@ -4,9 +4,9 @@ import time
 
 class Window:
 
-    def __init__(self) -> None:
+    def __init__(self, RowLen) -> None:
         # constants
-        self._numOfSpaces = 7  # must be odd
+        self._numOfSpaces = RowLen
         self._FrameWidth = 5
         self._FieldSize = 50
         self._WindowWidth = (
@@ -35,6 +35,8 @@ class Window:
         self._MouseX = 0
         self._MouseY = 0
         self._Clicked = False
+        self._pawns = None
+        self.SetFrame()
 
     @property
     def numOfSpaces(self):
@@ -83,26 +85,42 @@ class Window:
                 self._WindowWidth-1, (width+skip)*line + width,
                 fill='Black')
 
-    def SetPawn(self, type, x, y):
-        """what kind of pawn and where 0=ai, 1=random, 2=player, 3=neutron
-        and where (x,y) for x,y e[0,5]"""
+    def SetPawns(self, enemyPawns, neutron, playerPawns):
+        self._pawns = {}
+        for pawn in enemyPawns:
+            self._pawns[pawn] = self.CreatePawn(pawn.color, pawn.X, pawn.Y)
+
+        for pawn in playerPawns:
+            self._pawns[pawn] = self.CreatePawn(pawn.color, pawn.X, pawn.Y)
+
+        self._pawns[neutron] = self.CreatePawn(neutron.color, neutron.X, neutron.Y)
+
+    def changePawnColor(self, pawn, color):
+        gPawn = self._pawns[pawn]
+        self._Canvas.itemconfig(gPawn, fill=color)
+        self.Update()
+
+    def CreatePawn(self, color, x, y):
         starter = self._FrameWidth + int(self._FieldSize / 2)
         x = starter + x * (self._FrameWidth + self._FieldSize)
         y = starter + y * (self._FrameWidth + self._FieldSize)
 
-        self._Canvas.create_oval(
+        pawn = self._Canvas.create_oval(
             x-self._BallRadius,
             y-self._BallRadius,
             x+self._BallRadius,
             y+self._BallRadius,
-            fill=type
+            fill=color
         )
+
+        return pawn
 
     def FieldsIntoPix(self, num):
         num = num * (self._FrameWidth + self._FieldSize)
         return num
 
     def move(self, pawn, x, y):
+        gPawn = self._pawns[pawn]
         x = self.FieldsIntoPix(x)
         y = self.FieldsIntoPix(y)
 
@@ -130,43 +148,19 @@ class Window:
             y0 += dirY * self._speed
 
             time.sleep(self.betweenStepsDelay)
-            self._Canvas.move(pawn._pawn, dirX*self._speed, dirY*self._speed)
+            self._Canvas.move(gPawn, dirX*self._speed, dirY*self._speed)
             self.Update()
 
         self._Canvas.move(
-            pawn._pawn, dirX*(abs(abs(x0) - abs(x))),
+            gPawn, dirX*(abs(abs(x0) - abs(x))),
             dirY*(abs(abs(y0) - abs(y)))
             )
-        self.Update()
-
-    def CreateBoard(self):
-        Board = [
-            [None for x in range(self.numOfSpaces)]
-            for y in range(self.numOfSpaces)
-            ]
-
-        return Board
 
     def PrintMiddleText(self, message):
         self._Canvas.create_text(
             self.size/2, self.size/2, text=message,
             fill="Yellow", font=('Helvetica 25 bold'))
         self.Update()
-
-    def CreatePawn(self, type, x, y):
-        starter = self._FrameWidth + int(self._FieldSize / 2)
-        x = starter + x * (self._FrameWidth + self._FieldSize)
-        y = starter + y * (self._FrameWidth + self._FieldSize)
-
-        pawn = self._Canvas.create_oval(
-            x-self._BallRadius,
-            y-self._BallRadius,
-            x+self._BallRadius,
-            y+self._BallRadius,
-            fill=type
-        )
-
-        return pawn
 
     def on_closing(self):
         self._Window.destroy()

@@ -3,8 +3,9 @@ from PlayablePlayer_gui import PlayablePlayer_gui
 
 
 class PlayablePlayer(Player):
-    def __init__(self, Window, Neutron, Pawns, Board):
-        super().__init__(Window, Neutron, Pawns, Board)
+    def __init__(self, RowLen, Window, Neutron, Pawns, Board):
+        super().__init__(RowLen, Neutron, Pawns, Board)
+        self._Window = Window
         self._gui = PlayablePlayer_gui(self._Window)
 
     def turn(self):
@@ -35,13 +36,13 @@ class PlayablePlayer(Player):
                 self._usedPawn = pawn
 
     def Update(self):
-
+        neutronCheck = self.isNeutronMovable()
         if (not self._pawnMoved):
             self.choosePawn()
             if (self._usedPawn is not None):
                 self.turn()
 
-        if (self.isNeutronMovable()):
+        if (neutronCheck):
             if (not self._neutronMoved and self._pawnMoved):
                 self._usedPawn = self._Neutron
                 self.turn()

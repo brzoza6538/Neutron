@@ -1,6 +1,6 @@
 class Player:
-    def __init__(self, Window, Neutron, Pawns, Board):
-        self._Window = Window
+    def __init__(self, RowLen, Neutron, Pawns, Board):
+        self._RowLen = RowLen
         self._Board = Board
         self._Pawns = Pawns
         self._Neutron = Neutron
@@ -11,6 +11,8 @@ class Player:
 
         self._immobileNeutron = False
 
+        self._movedPawn = None
+
     def Render(self):
         for pawn in range(5):
             self._Pawns[pawn].Update()
@@ -18,8 +20,8 @@ class Player:
     def IsMoveInDirPossible(self, x0, y0, dirX, dirY):
         """sprawdza czy ruch możliwy, ruch o 0 pól oznacza że niemożliwy"""
         if (
-            (x0 + dirX > (self._Window.numOfSpaces - 1)) or
-            (y0 + dirY > (self._Window.numOfSpaces - 1)) or
+            (x0 + dirX > (self._RowLen - 1)) or
+            (y0 + dirY > (self._RowLen - 1)) or
             (x0 + dirX < 0) or (y0 + dirY < 0)
                 ):
             return False
@@ -60,9 +62,10 @@ class Player:
         stepX, stepY = self.MoveToWhere(pawn, x, y)
 
         self._Board.clearSpace(pawn._X, pawn._Y)
-        self._Board.setSpace(stepX, stepY, pawn.type)
+        self._Board.setSpace(stepX, stepY, pawn.color)
 
         pawn.move(stepX, stepY)
+        self._movedPawn = pawn
 
     def isTurnFinished(self):
         if (self._neutronMoved and self._pawnMoved):
@@ -71,6 +74,11 @@ class Player:
             return True
         else:
             return False
+
+    def whatMoved(self):
+        pomoc = self._movedPawn
+        self._movedPawn = None
+        return pomoc
 
     def Update(self):
         pass
