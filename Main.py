@@ -1,30 +1,17 @@
 from Window import Window
 from Game import Game
-
-
-def getPlayerTypes():
-    print("choose player types(write 'AI', 'rand', or 'player'):")
-    while True:
-        top = input("Player type on the bottom of the board:")
-        if (top == "AI" or top == "rand" or top == "player"):
-            break
-
-    while True:
-        bottom = input("Player type on the top of the board:")
-        if (bottom == "AI" or bottom == "rand" or bottom == "player"):
-            break
-
-    return top, bottom
+from Main_gui import Main_gui
 
 
 def main():
-    top, bottom = getPlayerTypes()
-
-    RowLen = 7  # num of tiles in a row - must be odd
+    customData = Main_gui()
+    Top = customData.TopPlayerType
+    Bottom = customData.BottomPlayerType
+    RowLen = customData.RowLen
 
     window = Window(RowLen)
 
-    game = Game(RowLen, window, top, bottom)
+    game = Game(RowLen, window, Top, Bottom)
     window.SetPawns(game.TopPawns, game.Neutron, game.BottomPawns)
     window.PrintMiddleText(f"{game._whoseTurn.upper()} STARTS")
 
@@ -43,5 +30,5 @@ def main():
             break
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

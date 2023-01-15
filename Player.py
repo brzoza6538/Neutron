@@ -66,7 +66,7 @@ class Player:
     def move(self, x, y):
         """x, y przyjmuja wartość -1, 0, 1"""
         pawn = self._usedPawn
-        if (pawn.type == "Neutron"):
+        if (pawn.set == "Neutron"):
             self._neutronMoved = True
         else:
             self._pawnMoved = True
@@ -74,7 +74,7 @@ class Player:
         stepX, stepY = self.MoveToWhere(pawn, x, y)
 
         self._Board.clearSpace(pawn._X, pawn._Y)
-        self._Board.setSpace(stepX, stepY, pawn.type)
+        self._Board.setSpace(stepX, stepY, pawn.set)
 
         pawn.move(stepX, stepY)
         self._movedPawn = pawn

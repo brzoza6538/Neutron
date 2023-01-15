@@ -47,16 +47,16 @@ class Game:
 
     def SetPawns(self):
         for x in range(self._RowLen):
-            self._TopPawns.append(Pawns.TopPawn(x, 0))
-            self._Board.setSpace(x, 0, self._TopPawns[x].type)
+            self._TopPawns.append(Pawns.TopPawn(self._topPlayerType, x, 0))
+            self._Board.setSpace(x, 0, self._TopPawns[x].set)
 
         for x in range(self._RowLen):
-            self._BottomPawns.append(Pawns.BottomPawn(x, self._RowLen - 1))
-            self._Board.setSpace(x, self._RowLen - 1, self._BottomPawns[x].type)
+            self._BottomPawns.append(Pawns.BottomPawn(self._bottomPlayerType, x, self._RowLen - 1))
+            self._Board.setSpace(x, self._RowLen - 1, self._BottomPawns[x].set)
 
         middle = math.floor(self._RowLen/2)
-        self._Neutron = Pawns.NeutronPawn(middle, middle)
-        self._Board.setSpace(middle, middle,  self._Neutron.type)
+        self._Neutron = Pawns.NeutronPawn("Neutron", middle, middle)
+        self._Board.setSpace(middle, middle,  self._Neutron.set)
 
     def SetPlayers(self):
 

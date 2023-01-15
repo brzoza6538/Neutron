@@ -12,22 +12,22 @@ import math
 
 def SetPawnsSurroundingNeutron(self):
     for x in range(self._RowLen):
-        self._TopPawns.append(Pawns.RandomPawn(x, 0))
-        self._Board.setSpace(x, 0, self._TopPawns[x].type)
+        self._TopPawns.append(Pawns.TopPawn(self._topPlayerType, x, 0))
+        self._Board.setSpace(x, 0, self._TopPawns[x].set)
 
     for x in range(self._RowLen-1):
         self._BottomPawns.append(
-            Pawns.PlayerPawn(x, 2))
+            Pawns.BottomPawn(self._bottomPlayerType, x, 2))
         self._Board.setSpace(
-            x, 2, self._BottomPawns[x].type)
+            x, 2, self._BottomPawns[x].set)
 
     self._BottomPawns.append(
-        Pawns.PlayerPawn(1, 1))
+        Pawns.BottomPawn(self._bottomPlayerType, 1, 1))
     self._Board.setSpace(
-        1, 1, self._BottomPawns[self._RowLen-1].type)
+        1, 1, self._BottomPawns[self._RowLen-1].set)
 
-    self._Neutron = Pawns.NeutronPawn(0, 1)
-    self._Board.setSpace(0, 1,  self._Neutron.type)
+    self._Neutron = Pawns.NeutronPawn("Neutron", 0, 1)
+    self._Board.setSpace(0, 1,  self._Neutron.set)
 
 
 def testSurroundedNeutronPlayerLoses(monkeypatch):
@@ -61,19 +61,19 @@ def testSurroundedNeutronPlayerWins(monkeypatch):
 def SetPawnsNeutronAtEnemy(self):
     rowLen = self._RowLen
     for x in range(rowLen):
-        self._TopPawns.append(Pawns.AIPawn(x, 1))
-        self._Board.setSpace(x, 1, self._TopPawns[x].type)
+        self._TopPawns.append(Pawns.TopPawn(self._topPlayerType, x, 1))
+        self._Board.setSpace(x, 1, self._TopPawns[x].set)
 
     for x in range(rowLen):
         self._BottomPawns.append(
-            Pawns.PlayerPawn(x, (rowLen - 1))
+            Pawns.BottomPawn(self._bottomPlayerType, x, (rowLen - 1))
             )
         self._Board.setSpace(
-            x, (rowLen - 1), self._BottomPawns[x].type
+            x, (rowLen - 1), self._BottomPawns[x].set
             )
     middle = 0
-    self._Neutron = Pawns.NeutronPawn(middle, middle)
-    self._Board.setSpace(middle, middle,  self._Neutron.type)
+    self._Neutron = Pawns.NeutronPawn("Neutron", middle, middle)
+    self._Board.setSpace(middle, middle,  self._Neutron.set)
 
 
 def testNeutronAtEnemyPlayerTurn(monkeypatch):
@@ -107,19 +107,19 @@ def testNeutronAtEnemyEnemyTurn(monkeypatch):
 def SetPawnsNeutronAtPlayer(self):
     rowLen = self._RowLen
     for x in range(rowLen):
-        self._TopPawns.append(Pawns.RandomPawn(x, 1))
-        self._Board.setSpace(x, 1, self._TopPawns[x].type)
+        self._TopPawns.append(Pawns.TopPawn(self._topPlayerType, x, 1))
+        self._Board.setSpace(x, 1, self._TopPawns[x].set)
 
     for x in range(rowLen):
         self._BottomPawns.append(
-            Pawns.PlayerPawn(x, (rowLen - 1))
+            Pawns.BottomPawn(self._bottomPlayerType, x, (rowLen - 1))
             )
         self._Board.setSpace(
-            x, (rowLen - 1), self._BottomPawns[x].type
+            x, (rowLen - 1), self._BottomPawns[x].set
             )
     middle = rowLen - 1
-    self._Neutron = Pawns.NeutronPawn(middle, middle)
-    self._Board.setSpace(middle, middle,  self._Neutron.type)
+    self._Neutron = Pawns.NeutronPawn("Neutron", middle, middle)
+    self._Board.setSpace(middle, middle,  self._Neutron.set)
 
 
 def testNeutronAtPlayerPlayerTurn(monkeypatch):
@@ -194,11 +194,11 @@ def testBoardPawnsConsistency():
 
     for row in game._Board._Board:
         for field in row:
-            if (field == game._TopPawns[0].type):
+            if (field == game._TopPawns[0].set):
                 randPawnsCounter += 1
-            elif (field == game._BottomPawns[0].type):
+            elif (field == game._BottomPawns[0].set):
                 playerPawnsCounter += 1
-            elif (field == game.Neutron.type):
+            elif (field == game.Neutron.set):
                 neutronCounter += 1
             else:
                 EmptySpacesCounter += 1
@@ -228,15 +228,15 @@ def testPawnsBoardConsistency():
     var = True
     board = game._Board._Board
     for pawn in game.TopPawns:
-        if board[pawn.X][pawn.Y] != pawn.type:
+        if board[pawn.X][pawn.Y] != pawn.set:
             var = False
 
     for pawn in game.BottomPawns:
-        if board[pawn.X][pawn.Y] != pawn.type:
+        if board[pawn.X][pawn.Y] != pawn.set:
             var = False
 
     pawn = game.Neutron
-    if board[pawn.X][pawn.Y] != pawn.type:
+    if board[pawn.X][pawn.Y] != pawn.set:
         var = False
 
     assert var is True
@@ -248,27 +248,27 @@ def testPawnsBoardConsistency():
 def SetPawnsWithOneWinOption_01(self):
     rowLen = self._RowLen
     for x in range(rowLen):
-        self._TopPawns.append(Pawns.AIPawn(x, 0))
-        self._Board.setSpace(x, 0, self._TopPawns[x].type)
+        self._TopPawns.append(Pawns.TopPawn(self._topPlayerType, x, 0))
+        self._Board.setSpace(x, 0, self._TopPawns[x].set)
 
     for x in range(rowLen):
         if (x != math.floor(self._RowLen/2)):
             self._BottomPawns.append(
-                Pawns.PlayerPawn(x, (rowLen - 1))
+                Pawns.BottomPawn(self._bottomPlayerType, x, (rowLen - 1))
                 )
             self._Board.setSpace(
-                x, (rowLen - 1), self._BottomPawns[x].type
+                x, (rowLen - 1), self._BottomPawns[x].set
                 )
         else:
             self._BottomPawns.append(
-                Pawns.PlayerPawn(1, 1)
+                Pawns.BottomPawn(self._bottomPlayerType, 1, 1)
                 )
             self._Board.setSpace(
-                1, 1, self._BottomPawns[x].type
+                1, 1, self._BottomPawns[x].set
                 )
     middle = math.floor(self._RowLen/2)
-    self._Neutron = Pawns.NeutronPawn(middle, middle)
-    self._Board.setSpace(middle, middle,  self._Neutron.type)
+    self._Neutron = Pawns.NeutronPawn("Neutron", middle, middle)
+    self._Board.setSpace(middle, middle,  self._Neutron.set)
 
 
 def testAIFindingWin_01(monkeypatch):
@@ -296,27 +296,27 @@ def testAIFindingWin_01(monkeypatch):
 def SetPawnsWithOneWinOption_11(self):
     rowLen = self._RowLen
     for x in range(rowLen):
-        self._TopPawns.append(Pawns.AIPawn(x, 0))
-        self._Board.setSpace(x, 0, self._TopPawns[x].type)
+        self._TopPawns.append(Pawns.TopPawn(self._topPlayerType, x, 0))
+        self._Board.setSpace(x, 0, self._TopPawns[x].set)
 
     for x in range(rowLen):
         if (x != rowLen - 1):  #
             self._BottomPawns.append(
-                Pawns.PlayerPawn(x, (rowLen - 1))
+                Pawns.BottomPawn(self._bottomPlayerType, x, (rowLen - 1))
                 )
             self._Board.setSpace(
-                x, (rowLen - 1), self._BottomPawns[x].type
+                x, (rowLen - 1), self._BottomPawns[x].set
                 )
         else:
             self._BottomPawns.append(
-                Pawns.PlayerPawn(1, 1)
+                Pawns.BottomPawn(self._bottomPlayerType, 1, 1)
                 )
             self._Board.setSpace(
-                1, 1, self._BottomPawns[x].type
+                1, 1, self._BottomPawns[x].set
                 )
     middle = math.floor(self._RowLen/2)
-    self._Neutron = Pawns.NeutronPawn(middle, middle)
-    self._Board.setSpace(middle, middle,  self._Neutron.type)
+    self._Neutron = Pawns.NeutronPawn("Neutron", middle, middle)
+    self._Board.setSpace(middle, middle,  self._Neutron.set)
 
 
 def testAIFindingWin_11(monkeypatch):
@@ -347,16 +347,16 @@ def testAIFindingWin_11(monkeypatch):
 def SetPawnsWithEnemyDefenseless(self):
     rowLen = self._RowLen
     for x in range(rowLen):
-        self._TopPawns.append(Pawns.AIPawn(x, rowLen - 2))
-        self._Board.setSpace(x, rowLen - 2, self._TopPawns[x].type)
+        self._TopPawns.append(Pawns.TopPawn(self._topPlayerType, x, rowLen - 2))
+        self._Board.setSpace(x, rowLen - 2, self._TopPawns[x].set)
 
     for x in range(rowLen):
-        self._TopPawns.append(Pawns.AIPawn(x, rowLen - 1))
-        self._Board.setSpace(x, rowLen - 1, self._TopPawns[x].type)
+        self._BottomPawns.append(Pawns.BottomPawn(self._bottomPlayerType, x, rowLen - 1))
+        self._Board.setSpace(x, rowLen - 1, self._BottomPawns[x].set)
 
     middle = math.floor(self._RowLen/2)
-    self._Neutron = Pawns.NeutronPawn(middle, middle)
-    self._Board.setSpace(middle, middle,  self._Neutron.type)
+    self._Neutron = Pawns.NeutronPawn("Neutron", middle, middle)
+    self._Board.setSpace(middle, middle,  self._Neutron.set)
 
 
 def testNotLoosingAbility(monkeypatch):
