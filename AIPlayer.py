@@ -5,7 +5,6 @@ import random
 class AIPlayer(Player):
     def __init__(self, RowLen, Neutron, Pawns, Board, loc):
         super().__init__(RowLen, Neutron, Pawns, Board, loc)
-        self._timer = 0
 
     def randomMove(self):
         dirX = random.randint(-1, 1)
@@ -38,10 +37,7 @@ class AIPlayer(Player):
     def isMoveSafe(self, dirX, dirY):
         stepY = self.MoveToWhere(self._usedPawn, dirX, dirY)[1]
         if (self._Neutron == self._usedPawn):
-            if (
-             (self._loc == "bottom" and stepY == self._RowLen - 1) or
-             (self._loc == "top" and stepY == 0)
-            ):
+            if (self._BaseRow == stepY):
                 return False
         return True
 
@@ -49,13 +45,11 @@ class AIPlayer(Player):
         for dirX in [-1, 0, 1]:
             for dirY in [-1, 0, 1]:
                 stepY = self.MoveToWhere(self._usedPawn, dirX, dirY)[1]
-                if ((self._loc == "bottom" and stepY == 0)
-                        or (self._loc == "top" and stepY == self._RowLen - 1)):
+                if (self._enemyRow == stepY):
                     return dirX, dirY
         return None, None
 
     def Update(self):
-        self._timer += 1
         neutronCheck = self.isNeutronMovable()
         if (not self._pawnMoved):
             self.choosePawn()

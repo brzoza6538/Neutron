@@ -85,12 +85,12 @@ class Window:
                 self._WindowWidth-1, (width+skip)*line + width,
                 fill='Black')
 
-    def SetPawns(self, enemyPawns, neutron, playerPawns):
+    def SetPawns(self, TopPawns, neutron, BottomPawns):
         self._pawns = {}
-        for pawn in enemyPawns:
+        for pawn in TopPawns:
             self._pawns[pawn] = self.CreatePawn(pawn.color, pawn.X, pawn.Y)
 
-        for pawn in playerPawns:
+        for pawn in BottomPawns:
             self._pawns[pawn] = self.CreatePawn(pawn.color, pawn.X, pawn.Y)
 
         self._pawns[neutron] = self.CreatePawn(

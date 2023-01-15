@@ -5,7 +5,6 @@ import random
 class RandomPlayer(Player):
     def __init__(self, RowLen, Neutron, Pawns, Board, loc):
         super().__init__(RowLen, Neutron, Pawns, Board, loc)
-        self._timer = 0
 
     def randomMove(self):
         dirX = random.randint(-1, 1)
@@ -21,7 +20,6 @@ class RandomPlayer(Player):
             random.randint(0,  (self._RowLen - 1))]
 
     def Update(self):
-        self._timer += 1
         neutronCheck = self.isNeutronMovable()
         if (not self._pawnMoved):
             self.choosePawn()

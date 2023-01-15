@@ -13,6 +13,12 @@ class Player:
         self._immobileNeutron = False
 
         self._movedPawn = None
+        if (self._loc == "top"):
+            self._BaseRow = 0
+            self._enemyRow = RowLen - 1
+        else:
+            self._BaseRow = RowLen - 1
+            self._enemyRow = 0
 
     @property
     def loc(self):
