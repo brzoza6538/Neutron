@@ -34,6 +34,7 @@ class Main_gui():
                 self._rowLabel = self._canvas.create_window(
                     175, 25, window=self._rowMessage)
             else:
+                self._rowEntry.delete(0, 'end')
                 self._rowMessage.destroy()
                 self._rowMessage = tk.Label(
                     text="""size must be an odd number, \
@@ -43,6 +44,7 @@ smaller than 20 and bigger than 2""")
                     175, 25, window=self._rowMessage)
 
         except ValueError:
+            self._rowEntry.delete(0, 'end')
             self._rowMessage.destroy()
             self._rowMessage = tk.Label(
                 text="""size must be an odd number, \
@@ -67,6 +69,7 @@ smaller than 20 and bigger than 2""")
             self._topLabel = self._canvas.create_window(
                 175, 75, window=self._topMessage)
         else:
+            self._topEntry.delete(0, 'end')
             self._topMessage.destroy()
             self._topMessage = tk.Label(
                 text="please write 'AI', 'rand', or 'player'")
@@ -90,6 +93,7 @@ smaller than 20 and bigger than 2""")
             self._bottomLabel = self._canvas.create_window(
                 175, 125, window=self._bottomMessage)
         else:
+            self._bottomEntry.delete(0, 'end')
             self._bottomMessage.destroy()
             self._bottomMessage = tk.Label(
                 text="please write 'AI', 'rand', or 'player'")
