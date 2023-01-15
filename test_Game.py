@@ -169,12 +169,7 @@ def usePawn(pawn, game):
                 )):
             game._player1._usedPawn = usedPawn
             game._player1.move(dirX, dirY)
-            # game._movedPawn = usedPawn
-            # if (game.movedPawn is not None):
-            #     game._Window.move(
-            #         game.movedPawn, (game.movedPawn.X - game.movedPawn.lastX),
-            #         (game.movedPawn.Y - game.movedPawn.lastY)
-            #     )
+
             break
 
 

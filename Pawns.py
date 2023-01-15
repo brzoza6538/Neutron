@@ -74,3 +74,19 @@ class NeutronPawn(Pawn):
         super().__init__(x, y)
         self._type = "Neutron"
         self._color = "Pink"
+
+
+class TopPawn(Pawn):
+
+    def __init__(self, x, y):
+        super().__init__(x, y)
+        self._type = "Top"
+        self._color = "White"
+
+
+class BottomPawn(Pawn):
+
+    def __init__(self, x, y):
+        super().__init__(x, y)
+        self._type = "Bottom"
+        self._color = "Black"

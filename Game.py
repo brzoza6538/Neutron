@@ -46,31 +46,13 @@ class Game:
         return self._Neutron
 
     def SetPawns(self):
-        if (self._topPlayerType == "AI"):
-            for x in range(self._RowLen):
-                self._TopPawns.append(Pawns.AIPawn(x, 0))
-                self._Board.setSpace(x, 0, self._TopPawns[x].type)
-        elif (self._topPlayerType == "player"):
-            for x in range(self._RowLen):
-                self._TopPawns.append(Pawns.PlayerPawn(x, 0))
-                self._Board.setSpace(x, 0, self._TopPawns[x].type)
-        else:
-            for x in range(self._RowLen):
-                self._TopPawns.append(Pawns.RandomPawn(x, 0))
-                self._Board.setSpace(x, 0, self._TopPawns[x].type)
+        for x in range(self._RowLen):
+            self._TopPawns.append(Pawns.TopPawn(x, 0))
+            self._Board.setSpace(x, 0, self._TopPawns[x].type)
 
-        if (self._bottomPlayerType == "AI"):
-            for x in range(self._RowLen):
-                self._BottomPawns.append(Pawns.AIPawn(x, self._RowLen - 1))
-                self._Board.setSpace(x, self._RowLen - 1, self._TopPawns[x].type)
-        elif (self._bottomPlayerType == "player"):
-            for x in range(self._RowLen):
-                self._BottomPawns.append(Pawns.PlayerPawn(x, self._RowLen - 1))
-                self._Board.setSpace(x, self._RowLen - 1, self._TopPawns[x].type)
-        else:
-            for x in range(self._RowLen):
-                self._BottomPawns.append(Pawns.RandomPawn(x, self._RowLen - 1))
-                self._Board.setSpace(x, self._RowLen - 1, self._TopPawns[x].type)
+        for x in range(self._RowLen):
+            self._BottomPawns.append(Pawns.BottomPawn(x, self._RowLen - 1))
+            self._Board.setSpace(x, self._RowLen - 1, self._BottomPawns[x].type)
 
         middle = math.floor(self._RowLen/2)
         self._Neutron = Pawns.NeutronPawn(middle, middle)

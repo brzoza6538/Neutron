@@ -120,7 +120,11 @@ class Window:
         num = num * (self._FrameWidth + self._FieldSize)
         return num
 
-    def move(self, pawn, x, y):
+    def move(self, pawn):
+
+        x = (pawn.X - pawn.lastX)
+        y = (pawn.Y - pawn.lastY)
+
         gPawn = self._pawns[pawn]
         x = self.FieldsIntoPix(x)
         y = self.FieldsIntoPix(y)
@@ -158,10 +162,12 @@ class Window:
             )
 
     def PrintMiddleText(self, message):
-        self._Canvas.create_text(
+        text = self._Canvas.create_text(
             self.size/2, self.size/2, text=message,
             fill="Yellow", font=('Helvetica 25 bold'))
         self.Update()
+        time.sleep(2)
+        self._Canvas.delete(text)
 
     def on_closing(self):
         self._Window.destroy()
