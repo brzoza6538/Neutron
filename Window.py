@@ -19,8 +19,9 @@ class Window:
             )
 
         self._BallRadius = int(self._FieldSize/2) - 6
+
         self.betweenStepsDelay = 0.01
-        self._speed = 9
+        self._step = int(self._WindowWidth / 50)
         # Window
         self._Window = tkinter.Tk()
         self._Window.title("Neutron")
@@ -146,14 +147,14 @@ class Window:
             dirY += 1
 
         while (
-            abs(abs(x0) - abs(x)) > abs(self._speed) or
-            abs(abs(y0) - abs(y)) > abs(self._speed)
+            abs(abs(x0) - abs(x)) > abs(self._step) or
+            abs(abs(y0) - abs(y)) > abs(self._step)
                 ):
-            x0 += dirX * self._speed
-            y0 += dirY * self._speed
+            x0 += dirX * self._step
+            y0 += dirY * self._step
 
             time.sleep(self.betweenStepsDelay)
-            self._Canvas.move(gPawn, dirX*self._speed, dirY*self._speed)
+            self._Canvas.move(gPawn, dirX*self._step, dirY*self._step)
             self.Update()
 
         self._Canvas.move(
@@ -166,7 +167,7 @@ class Window:
             self.size/2, self.size/2, text=message,
             fill="Yellow", font=('Helvetica 25 bold'))
         self.Update()
-        time.sleep(2)
+        time.sleep(1)
         self._Canvas.delete(text)
 
     def on_closing(self):

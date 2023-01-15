@@ -51,7 +51,8 @@ class Game:
             self._Board.setSpace(x, 0, self._TopPawns[x].set)
 
         for x in range(self._RowLen):
-            self._BottomPawns.append(Pawns.BottomPawn(self._bottomPlayerType, x, self._RowLen - 1))
+            self._BottomPawns.append(Pawns.BottomPawn(
+                self._bottomPlayerType, x, self._RowLen - 1))
             self._Board.setSpace(x, self._RowLen - 1, self._BottomPawns[x].set)
 
         middle = math.floor(self._RowLen/2)

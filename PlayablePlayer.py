@@ -26,9 +26,11 @@ class PlayablePlayer(Player):
 
         if (self._gui.CheckClicked()):
             if (self.IsMoveInDirPossible(pawn.X, pawn.Y, dirX, dirY)):
-                self._gui.DelLine()
-                self.move(dirX, dirY)
-                self._usedPawn = None
+                var = self._Board.onField(self._gui.MouseX, self._gui.MouseY)
+                if (var != self._loc):
+                    self._gui.DelLine()
+                    self.move(dirX, dirY)
+                    self._usedPawn = None
 
     def choosePawn(self):
         for pawn in self._Pawns:

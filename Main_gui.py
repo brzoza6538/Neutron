@@ -31,16 +31,25 @@ class Main_gui():
                 self._rowMessage.destroy()
                 self._rowMessage = tk.Label(text="thank you")
                 self._rowEntry.config(state="disabled")
-                self._rowLabel = self._canvas.create_window(175, 25, window=self._rowMessage)
+                self._rowLabel = self._canvas.create_window(
+                    175, 25, window=self._rowMessage)
             else:
                 self._rowMessage.destroy()
-                self._rowMessage = tk.Label(text="size must be an odd number, smaller than 20 and bigger than 2")
-                self._rowLabel = self._canvas.create_window(175, 25, window=self._rowMessage)
+                self._rowMessage = tk.Label(
+                    text="""size must be an odd number, \
+smaller than 20 and bigger than 2""")
+
+                self._rowLabel = self._canvas.create_window(
+                    175, 25, window=self._rowMessage)
 
         except ValueError:
             self._rowMessage.destroy()
-            self._rowMessage = tk.Label(text="size must be an odd number, smaller than 20 and bigger than 2")
-            self._rowLabel = self._canvas.create_window(175, 25, window=self._rowMessage)
+            self._rowMessage = tk.Label(
+                text="""size must be an odd number, \
+smaller than 20 and bigger than 2""")
+
+            self._rowLabel = self._canvas.create_window(
+                175, 25, window=self._rowMessage)
 
         TopPlayerType = self._topEntry.get()
         if (
@@ -55,11 +64,15 @@ class Main_gui():
             self._TopPlayerType = TopPlayerType
             self._topMessage = tk.Label(text="thank you")
             self._topEntry.config(state="disabled")
-            self._topLabel = self._canvas.create_window(175, 75, window=self._topMessage)
+            self._topLabel = self._canvas.create_window(
+                175, 75, window=self._topMessage)
         else:
             self._topMessage.destroy()
-            self._topMessage = tk.Label(text="please write 'AI', 'rand', or 'player'")
-            self._topLabel = self._canvas.create_window(175, 75, window=self._topMessage)
+            self._topMessage = tk.Label(
+                text="please write 'AI', 'rand', or 'player'")
+
+            self._topLabel = self._canvas.create_window(
+                175, 75, window=self._topMessage)
 
         BottomPlayerType = self._bottomEntry.get()
         if (
@@ -74,11 +87,14 @@ class Main_gui():
             self._bottomMessage.destroy()
             self._bottomMessage = tk.Label(text="thank you")
             self._bottomEntry.config(state="disabled")
-            self._bottomLabel = self._canvas.create_window(175, 125, window=self._bottomMessage)
+            self._bottomLabel = self._canvas.create_window(
+                175, 125, window=self._bottomMessage)
         else:
             self._bottomMessage.destroy()
-            self._bottomMessage = tk.Label(text="please write 'AI', 'rand', or 'player'")
-            self._bottomLabel = self._canvas.create_window(175, 125, window=self._bottomMessage)
+            self._bottomMessage = tk.Label(
+                text="please write 'AI', 'rand', or 'player'")
+            self._bottomLabel = self._canvas.create_window(
+                175, 125, window=self._bottomMessage)
 
         if (
                 self._RowLen is not None and
@@ -88,15 +104,20 @@ class Main_gui():
             self.on_closing()
 
     def getData(self):
+        self._rowMessage = tk.Label(
+            text="choose the size of the board (how many fields in a row):")
+        self._rowLabel = self._canvas.create_window(
+            175, 25, window=self._rowMessage)
 
-        self._rowMessage = tk.Label(text="choose the size of the board (how many fields in a row):")
-        self._rowLabel = self._canvas.create_window(175, 25, window=self._rowMessage)
+        self._topMessage = tk.Label(
+            text="choose top player type(write 'AI', 'rand', or 'player'):")
+        self._topLabel = self._canvas.create_window(
+            175, 75, window=self._topMessage)
 
-        self._topMessage = tk.Label(text="choose top player type(write 'AI', 'rand', or 'player'):")
-        self._topLabel = self._canvas.create_window(175, 75, window=self._topMessage)
-
-        self._bottomMessage = tk.Label(text="choose bottom player type(write 'AI', 'rand', or 'player'):")
-        self._bottomLabel = self._canvas.create_window(175, 125, window=self._bottomMessage)
+        self._bottomMessage = tk.Label(
+            text="choose bottom player type(write 'AI', 'rand', or 'player'):")
+        self._bottomLabel = self._canvas.create_window(
+            175, 125, window=self._bottomMessage)
 
         rowButton = tk.Button(text='Ok', command=self.checkData)
         self._canvas.create_window(175, 180, window=rowButton)

@@ -347,11 +347,13 @@ def testAIFindingWin_11(monkeypatch):
 def SetPawnsWithEnemyDefenseless(self):
     rowLen = self._RowLen
     for x in range(rowLen):
-        self._TopPawns.append(Pawns.TopPawn(self._topPlayerType, x, rowLen - 2))
+        self._TopPawns.append(Pawns.TopPawn(
+            self._topPlayerType, x, rowLen - 2))
         self._Board.setSpace(x, rowLen - 2, self._TopPawns[x].set)
 
     for x in range(rowLen):
-        self._BottomPawns.append(Pawns.BottomPawn(self._bottomPlayerType, x, rowLen - 1))
+        self._BottomPawns.append(Pawns.BottomPawn(
+            self._bottomPlayerType, x, rowLen - 1))
         self._Board.setSpace(x, rowLen - 1, self._BottomPawns[x].set)
 
     middle = math.floor(self._RowLen/2)

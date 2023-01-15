@@ -11,6 +11,9 @@ class Board:
 
         return Board
 
+    def onField(self, x, y):
+        return self._Board[x][y]
+
     def setSpace(self, x, y, set):
         self._Board[x][y] = set
 

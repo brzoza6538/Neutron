@@ -5,8 +5,8 @@ class Pawn:
         self._X = x
         self._Y = y
         self._type = type
-        self._set = "Top"
-        self._color = "Green"
+        self._set = "top"
+        self._color = "Black"
         self._lastY = None
         self._lastX = None
 
@@ -85,7 +85,7 @@ class TopPawn(Pawn):
 
     def __init__(self, type, x, y):
         super().__init__(type, x, y)
-        self._set = "Top"
+        self._set = "top"
         self._color = self.SetpColor()
 
     def SetpColor(self):
@@ -101,7 +101,7 @@ class BottomPawn(Pawn):
 
     def __init__(self, type, x, y):
         super().__init__(type, x, y)
-        self._set = "Bottom"
+        self._set = "bottom"
         self._color = self.SetpColor()
 
     def SetpColor(self):
