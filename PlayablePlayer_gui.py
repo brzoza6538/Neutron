@@ -11,15 +11,15 @@ class PlayablePlayer_gui():
     def MouseY(self):
         return self._Window.MouseY
 
-    def isMouseOnPawn(self, pawn):
+    def IsMouseOnPawn(self, pawn):
         if (
             self._Window.MouseX == pawn._X and
             self._Window.MouseY == pawn._Y
         ):
-            self._Window.changePawnColor(pawn, "Orange")
+            self._Window.ChangePawnColor(pawn, "Orange")
             return True
         else:
-            self._Window.changePawnColor(pawn, pawn.color)
+            self._Window.ChangePawnColor(pawn, pawn.color)
             return False
 
     def ShowLine(self, x0, y0, x1, y1):
@@ -40,7 +40,7 @@ class PlayablePlayer_gui():
         self._Window._Canvas.delete(self._line)
 
     def PawnClickedOn(self, pawn):
-        if (self.isMouseOnPawn(pawn) and self._Window.CheckClicked()):
+        if (self.IsMouseOnPawn(pawn) and self._Window.CheckClicked()):
             return True
         return False
 

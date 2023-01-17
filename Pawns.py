@@ -41,7 +41,7 @@ class Pawn:
     def lastY(self):
         return self._lastY
 
-    def move(self, x, y):
+    def Move(self, x, y):
         """na jakie pole (x,y) poruszyć"""
         self._lastX = self.X
         self._lastY = self.Y

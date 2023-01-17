@@ -36,11 +36,11 @@ class Player:
             (x0 + dirX < 0) or (y0 + dirY < 0)
                 ):
             return False
-        elif (self._Board.isFull(x0 + dirX, y0 + dirY)):
+        elif (self._Board.IsFull(x0 + dirX, y0 + dirY)):
             return False
         return True
 
-    def isNeutronMovable(self):
+    def IsNeutronMovable(self):
         x0 = self._Neutron.X
         y0 = self._Neutron.Y
         for dirX in [-1, 0, 1]:
@@ -63,7 +63,7 @@ class Player:
 
         return xCheck, yCheck
 
-    def move(self, x, y):
+    def Move(self, x, y):
         """x, y przyjmuja wartość -1, 0, 1"""
         pawn = self._usedPawn
         if (pawn.set == "Neutron"):
@@ -73,13 +73,13 @@ class Player:
 
         stepX, stepY = self.MoveToWhere(pawn, x, y)
 
-        self._Board.clearSpace(pawn._X, pawn._Y)
-        self._Board.setSpace(stepX, stepY, pawn.set)
+        self._Board.ClearSpace(pawn._X, pawn._Y)
+        self._Board.SetSpace(stepX, stepY, pawn.set)
 
-        pawn.move(stepX, stepY)
+        pawn.Move(stepX, stepY)
         self._movedPawn = pawn
 
-    def isTurnFinished(self):
+    def IsTurnFinished(self):
         if (self._neutronMoved and self._pawnMoved):
             self._neutronMoved = False
             self._pawnMoved = False
@@ -87,7 +87,7 @@ class Player:
         else:
             return False
 
-    def whatMoved(self):
+    def WhatMoved(self):
         pomoc = self._movedPawn
         self._movedPawn = None
         return pomoc

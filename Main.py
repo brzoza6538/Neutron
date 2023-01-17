@@ -3,7 +3,7 @@ from Game import Game
 from Main_gui import Main_gui
 
 
-def main():
+def Main():
     customData = Main_gui()
     Top = customData.TopPlayerType
     Bottom = customData.BottomPlayerType
@@ -21,14 +21,14 @@ def main():
         game.Update()
 
         if (game.movedPawn is not None):
-            window.move(game.movedPawn)
+            window.Move(game.movedPawn)
 
-        if game.checkIfEnd():
+        if game.CheckIfEnd():
             winner = (game.WhoWon().loc).upper()
             window.PrintMiddleText(f"{winner} WINS")
-            window.on_closing()
+            window.OnClosing()
             break
 
 
 if __name__ == '__main__':
-    main()
+    Main()

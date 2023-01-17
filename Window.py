@@ -97,7 +97,7 @@ class Window:
         self._pawns[neutron] = self.CreatePawn(
             neutron.color, neutron.X, neutron.Y)
 
-    def changePawnColor(self, pawn, color):
+    def ChangePawnColor(self, pawn, color):
         gPawn = self._pawns[pawn]
         self._Canvas.itemconfig(gPawn, fill=color)
         self.Update()
@@ -121,7 +121,7 @@ class Window:
         num = num * (self._FrameWidth + self._FieldSize)
         return num
 
-    def move(self, pawn):
+    def Move(self, pawn):
 
         x = (pawn.X - pawn.lastX)
         y = (pawn.Y - pawn.lastY)
@@ -170,7 +170,7 @@ class Window:
         time.sleep(1)
         self._Canvas.delete(text)
 
-    def on_closing(self):
+    def OnClosing(self):
         self._Window.destroy()
 
     def Update(self):

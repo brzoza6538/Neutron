@@ -48,16 +48,16 @@ class Game:
     def SetPawns(self):
         for x in range(self._RowLen):
             self._TopPawns.append(Pawns.TopPawn(self._topPlayerType, x, 0))
-            self._Board.setSpace(x, 0, self._TopPawns[x].set)
+            self._Board.SetSpace(x, 0, self._TopPawns[x].set)
 
         for x in range(self._RowLen):
             self._BottomPawns.append(Pawns.BottomPawn(
                 self._bottomPlayerType, x, self._RowLen - 1))
-            self._Board.setSpace(x, self._RowLen - 1, self._BottomPawns[x].set)
+            self._Board.SetSpace(x, self._RowLen - 1, self._BottomPawns[x].set)
 
         middle = math.floor(self._RowLen/2)
         self._Neutron = Pawns.NeutronPawn("Neutron", middle, middle)
-        self._Board.setSpace(middle, middle,  self._Neutron.set)
+        self._Board.SetSpace(middle, middle,  self._Neutron.set)
 
     def SetPlayers(self):
 
@@ -93,7 +93,7 @@ class Game:
                 self._Board, "bottom"
                 )
 
-    def checkIfEnd(self):
+    def CheckIfEnd(self):
         if (
             self._Neutron._Y == (self._RowLen - 1)
             or self._Neutron._Y == 0
@@ -114,9 +114,9 @@ class Game:
         elif (self._Neutron._Y == 0 or self._player1._immobileNeutron):
             return self._player2
 
-    def whatMoved(self):
-        player2Check = self._player2.whatMoved()
-        player1check = self._player1.whatMoved()
+    def WhatMoved(self):
+        player2Check = self._player2.WhatMoved()
+        player1check = self._player1.WhatMoved()
 
         if (player2Check is not None):
             self._movedPawn = player2Check
@@ -126,14 +126,14 @@ class Game:
             self._movedPawn = None
 
     def Update(self):
-        if not self.checkIfEnd() and self._whoseTurn == "bottom":
+        if not self.CheckIfEnd() and self._whoseTurn == "bottom":
             self._player2.Update()
-            if (self._player2.isTurnFinished()):
+            if (self._player2.IsTurnFinished()):
                 self._whoseTurn = "top"
 
-        elif not self.checkIfEnd() and self._whoseTurn == "top":
+        elif not self.CheckIfEnd() and self._whoseTurn == "top":
             self._player1.Update()
-            if (self._player1.isTurnFinished()):
+            if (self._player1.IsTurnFinished()):
                 self._whoseTurn = "bottom"
 
-        self.whatMoved()
+        self.WhatMoved()

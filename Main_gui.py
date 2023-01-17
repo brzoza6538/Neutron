@@ -19,10 +19,10 @@ class Main_gui():
         self._Canvas.create_window(175, 100, window=self._topEntry)
         self._Canvas.create_window(175, 150, window=self._bottomEntry)
 
-        self.getData()
+        self.GetData()
         self._Window.mainloop()
 
-    def checkData(self):
+    def CheckData(self):
         # while True:
         RowLen = self._rowEntry.get()
         try:
@@ -106,9 +106,9 @@ smaller than 20 and bigger than 2""")
                 self._BottomPlayerType is not None and
                 self._TopPlayerType is not None
                 ):
-            self.on_closing()
+            self.OnClosing()
 
-    def getData(self):
+    def GetData(self):
         self._rowMessage = tk.Label(
             text="choose the size of the board (how many fields in a row):")
         self._rowLabel = self._Canvas.create_window(
@@ -124,13 +124,13 @@ smaller than 20 and bigger than 2""")
         self._bottomLabel = self._Canvas.create_window(
             175, 125, window=self._bottomMessage)
 
-        rowButton = tk.Button(text='Ok', command=self.checkData)
+        rowButton = tk.Button(text='Ok', command=self.CheckData)
         self._Canvas.create_window(175, 180, window=rowButton)
 
-    def on_closing(self):
+    def OnClosing(self):
         self._Window.destroy()
 
-    def value(self):
+    def Value(self):
         return (self._RowLen, self._TopPlayerType, self._BottomPlayerType)
 
     @property

@@ -11,29 +11,29 @@ class Board:
 
         return Board
 
-    def onField(self, x, y):
+    def OnField(self, x, y):
         return self._Board[x][y]
 
-    def setSpace(self, x, y, set):
+    def SetSpace(self, x, y, set):
         self._Board[x][y] = set
 
-    def clearSpace(self, x, y):
+    def ClearSpace(self, x, y):
         self._Board[x][y] = None
 
-    def showSpace(self, x, y):
+    def ShowSpace(self, x, y):
         return self._Board[x][y]
 
-    def isFull(self, x, y):
+    def IsFull(self, x, y):
         if (self._Board[x][y] is not None):
             return True
         else:
             return False
 
-    def __str__(self):
+    def VisualRep(self):
         str = ""
         for y in range(len(self._Board)):
             for x in range(len(self._Board[y])):
-                if (not self.isFull(x, y)):
+                if (not self.IsFull(x, y)):
                     str += ("\t" + "O")
                 else:
                     str += ("\t" + self._Board[x][y])

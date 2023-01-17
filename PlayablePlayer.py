@@ -8,7 +8,7 @@ class PlayablePlayer(Player):
         self._Window = Window
         self._gui = PlayablePlayer_gui(self._Window)
 
-    def turn(self):
+    def Turn(self):
         pawn = self._usedPawn
         dirX = self._gui.MouseX - pawn._X
         if dirX > 0:
@@ -29,22 +29,22 @@ class PlayablePlayer(Player):
                 var = self._Board.onField(self._gui.MouseX, self._gui.MouseY)
                 if (var != self._loc):
                     self._gui.DelLine()
-                    self.move(dirX, dirY)
+                    self.Move(dirX, dirY)
                     self._usedPawn = None
 
-    def choosePawn(self):
+    def ChoosePawn(self):
         for pawn in self._Pawns:
             if (self._gui.PawnClickedOn(pawn)):
                 self._usedPawn = pawn
 
     def Update(self):
-        neutronCheck = self.isNeutronMovable()
+        neutronCheck = self.IsNeutronMovable()
         if (not self._pawnMoved):
-            self.choosePawn()
+            self.ChoosePawn()
             if (self._usedPawn is not None):
-                self.turn()
+                self.Turn()
 
         if (neutronCheck):
             if (not self._neutronMoved and self._pawnMoved):
                 self._usedPawn = self._Neutron
-                self.turn()
+                self.Turn()
