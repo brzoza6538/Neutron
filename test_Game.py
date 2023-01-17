@@ -381,3 +381,54 @@ def testNotLoosingAbility(monkeypatch):
             break
 
     assert var is True
+
+
+"""AI have only an option that would make them lose"""
+
+
+def SetPawnsAlmostSurroundingNeutron(self):
+    for x in range(self._RowLen):
+        self._TopPawns.append(Pawns.TopPawn(self._topPlayerType, x, 0))
+        self._Board.setSpace(x, 0, self._TopPawns[x].set)
+
+    for x in range(self._RowLen-1):
+        if (x == 1):
+            self._BottomPawns.append(
+                Pawns.BottomPawn(self._bottomPlayerType, 5, 5))
+            self._Board.setSpace(
+                5, 5, self._BottomPawns[x].set)
+        else:
+            self._BottomPawns.append(
+                Pawns.BottomPawn(self._bottomPlayerType, x, 2))
+            self._Board.setSpace(
+                x, 2, self._BottomPawns[x].set)
+
+    self._BottomPawns.append(
+        Pawns.BottomPawn(self._bottomPlayerType, 1, 1))
+    self._Board.setSpace(
+        1, 1, self._BottomPawns[self._RowLen-1].set)
+
+    self._Neutron = Pawns.NeutronPawn("Neutron", 0, 1)
+    self._Board.setSpace(0, 1,  self._Neutron.set)
+
+
+def testAIsuicide(monkeypatch):
+    monkeypatch.setattr("Game.Game.SetPawns", SetPawnsAlmostSurroundingNeutron)
+
+    RowLen = 7
+    window = Window(RowLen)
+
+    game = Game(RowLen, window, "AI", "AI")
+    game._whoseTurn = "bottom"
+    game._player2._pawnMoved = True
+    window.SetPawns(game.TopPawns, game.Neutron, game.BottomPawns)
+
+    while True:
+        game.Update()
+
+        if game.checkIfEnd():
+            winner = (game.WhoWon().loc)
+            window.on_closing()
+            break
+
+    assert winner == "top"

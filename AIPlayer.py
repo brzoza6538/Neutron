@@ -6,6 +6,15 @@ class AIPlayer(Player):
     def __init__(self, RowLen, Neutron, Pawns, Board, loc):
         super().__init__(RowLen, Neutron, Pawns, Board, loc)
 
+    def IsTheOnlyNeutronMoveSuicidal(self):
+        for dirX in [-1, 0, 1]:
+            for dirY in [-1, 0, 1]:
+                if (self.IsMoveInDirPossible(
+                        self._Neutron.X, self._Neutron.Y, dirX, dirY)):
+                    if (self.isMoveSafe(dirX, dirY)):
+                        return False
+        return True
+
     def randomMove(self):
         dirX = random.randint(-1, 1)
         dirY = random.randint(-1, 1)
@@ -26,8 +35,9 @@ class AIPlayer(Player):
 
             if (self.IsMoveInDirPossible(
                     self._usedPawn.X, self._usedPawn.Y, dirX, dirY)):
-
-                if (self.isMoveSafe(dirX, dirY)):
+                var = self.IsTheOnlyNeutronMoveSuicidal()
+                if (self.isMoveSafe(dirX, dirY)
+                        or var):
                     self.move(dirX, dirY)
 
     def choosePawn(self):
