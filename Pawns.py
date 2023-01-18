@@ -1,12 +1,15 @@
+from Variables import Type, Set
+
+
 class Pawn:
 
     def __init__(self, type, x, y):
-        """x, y według pól na planszy, nie piexeli"""
-        self._X = x
-        self._Y = y
+        """x, y according to board, not pixels"""
+        self._x = x
+        self._y = y
         self._type = type
-        self._set = "top"
-        self._color = "Black"
+        self._set = None
+        self._color = None
         self._lastY = None
         self._lastX = None
 
@@ -26,12 +29,12 @@ class Pawn:
         return self._color
 
     @property
-    def X(self):
-        return self._X
+    def x(self):
+        return self._x
 
     @property
-    def Y(self):
-        return self._Y
+    def y(self):
+        return self._y
 
     @property
     def lastX(self):
@@ -42,42 +45,18 @@ class Pawn:
         return self._lastY
 
     def Move(self, x, y):
-        """na jakie pole (x,y) poruszyć"""
-        self._lastX = self.X
-        self._lastY = self.Y
-        self._X = x
-        self._Y = y
-
-
-# class AIPawn(Pawn):
-
-#     def __init__(self, x, y):
-#         super().__init__(x, y)
-#         self._set = "AI"
-#         self._color = "Blue"
-
-
-# class RandomPawn(Pawn):
-
-#     def __init__(self, x, y):
-#         super().__init__(x, y)
-#         self._type = "Random"
-#         self._color = "Green"
-
-
-# class PlayerPawn(Pawn):
-
-#     def __init__(self, x, y):
-#         super().__init__(x, y)
-#         self._type = "Player"
-#         self._color = "Red"
+        """what field (x, y) move to"""
+        self._lastX = self.x
+        self._lastY = self.y
+        self._x = x
+        self._y = y
 
 
 class NeutronPawn(Pawn):
 
     def __init__(self, type, x, y):
         super().__init__(type, x, y)
-        self._set = "Neutron"
+        self._set = Type.NEUTRON
         self._color = "#F7CFF6"
 
 
@@ -85,13 +64,13 @@ class TopPawn(Pawn):
 
     def __init__(self, type, x, y):
         super().__init__(type, x, y)
-        self._set = "top"
+        self._set = Set.TOP
         self._color = self.SetpColor()
 
     def SetpColor(self):
-        if (self.type == "AI"):
+        if (self.type == Type.AI):
             return "#85C1E9"
-        elif (self.type == "player"):
+        elif (self.type == Type.PLAYER):
             return "#F1948A"
         else:
             return "#82E0AA"
@@ -101,13 +80,13 @@ class BottomPawn(Pawn):
 
     def __init__(self, type, x, y):
         super().__init__(type, x, y)
-        self._set = "bottom"
+        self._set = Set.BOTTOM
         self._color = self.SetpColor()
 
     def SetpColor(self):
-        if (self.type == "AI"):
+        if (self.type == Type.AI):
             return "#21618C"
-        elif (self.type == "player"):
+        elif (self.type == Type.PLAYER):
             return "#943126"
         else:
             return "#1D8348"

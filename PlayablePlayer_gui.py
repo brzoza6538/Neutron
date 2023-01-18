@@ -1,33 +1,33 @@
 class PlayablePlayer_gui():
     def __init__(self, Window):
-        self._Window = Window
+        self._window = Window
         self._line = None
 
     @property
-    def MouseX(self):
-        return self._Window.MouseX
+    def mouseX(self):
+        return self._window.mouseX
 
     @property
-    def MouseY(self):
-        return self._Window.MouseY
+    def mouseY(self):
+        return self._window.mouseY
 
     def IsMouseOnPawn(self, pawn):
         if (
-            self._Window.MouseX == pawn._X and
-            self._Window.MouseY == pawn._Y
+            self._window.mouseX == pawn.x and
+            self._window.mouseY == pawn.y
         ):
-            self._Window.ChangePawnColor(pawn, "Orange")
+            self._window.ChangePawnColor(pawn, "Orange")
             return True
         else:
-            self._Window.ChangePawnColor(pawn, pawn.color)
+            self._window.ChangePawnColor(pawn, pawn.color)
             return False
 
     def ShowLine(self, x0, y0, x1, y1):
-        self._Window._Canvas.delete(self._line)
+        self._window.canvas.delete(self._line)
 
-        fieldsize = self._Window._FrameWidth + self._Window._FieldSize
+        fieldsize = self._window.frameWidth + self._window.fieldSize
 
-        self._line = self._Window._Canvas.create_line(
+        self._line = self._window.canvas.create_line(
             x0 * fieldsize + fieldsize/2,
             y0 * fieldsize + fieldsize/2,
             x1 * fieldsize + fieldsize/2,
@@ -37,14 +37,14 @@ class PlayablePlayer_gui():
         )
 
     def DelLine(self):
-        self._Window._Canvas.delete(self._line)
+        self._window.canvas.delete(self._line)
 
     def PawnClickedOn(self, pawn):
-        if (self.IsMouseOnPawn(pawn) and self._Window.CheckClicked()):
+        if (self.IsMouseOnPawn(pawn) and self._window.CheckClicked()):
             return True
         return False
 
     def CheckClicked(self):
-        if (self._Window.CheckClicked()):
+        if (self._window.CheckClicked()):
             return True
         return False

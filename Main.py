@@ -5,15 +5,15 @@ from Main_gui import Main_gui
 
 def Main():
     customData = Main_gui()
-    Top = customData.TopPlayerType
-    Bottom = customData.BottomPlayerType
-    RowLen = customData.RowLen
+    top = customData.topPlayerType
+    bottom = customData.bottomPlayerType
+    rowlen = customData.rowlen
 
-    window = Window(RowLen)
+    window = Window(rowlen)
 
-    game = Game(RowLen, window, Top, Bottom)
-    window.SetPawns(game.TopPawns, game.Neutron, game.BottomPawns)
-    window.PrintMiddleText(f"{game._whoseTurn.upper()} STARTS")
+    game = Game(rowlen, window, top, bottom)
+    window.SetPawns(game.topPawns, game.neutron, game.bottomPawns)
+    window.PrintMiddleText(f"{game.whoseTurn.value.upper()} STARTS")
 
     while True:
         window.Update()
@@ -24,7 +24,7 @@ def Main():
             window.Move(game.movedPawn)
 
         if game.CheckIfEnd():
-            winner = (game.WhoWon().loc).upper()
+            winner = (game.WhoWon().set.value).upper()
             window.PrintMiddleText(f"{winner} WINS")
             window.OnClosing()
             break

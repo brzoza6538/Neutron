@@ -4,40 +4,52 @@ import time
 
 class Window:
 
-    def __init__(self, RowLen) -> None:
+    def __init__(self, rowlen) -> None:
         # constants
-        self._numOfSpaces = RowLen
-        self._FrameWidth = 5
-        self._FieldSize = 50
-        self._WindowWidth = (
-            (self._numOfSpaces*self._FieldSize) +
-            (self._FrameWidth*(self._numOfSpaces+1))
+        self._numOfSpaces = rowlen
+        self._frameWidth = 5
+        self._fieldSize = 50
+        self._windowWidth = (
+            (self._numOfSpaces*self._fieldSize) +
+            (self._frameWidth*(self._numOfSpaces+1))
             )
-        self._WindowHeight = (
-            (self._numOfSpaces*self._FieldSize) +
-            (self._FrameWidth*(self._numOfSpaces+1))
+        self._windowHeight = (
+            (self._numOfSpaces*self._fieldSize) +
+            (self._frameWidth*(self._numOfSpaces+1))
             )
 
-        self._BallRadius = int(self._FieldSize/2) - 6
+        self._ballRadius = int(self._fieldSize/2) - 6
 
         self.betweenStepsDelay = 0.01
-        self._step = int(self._WindowWidth / 50)
+        self._step = int(self._windowWidth / 50)
         # Window
-        self._Window = tkinter.Tk()
-        self._Window.title("Neutron")
-        self._Window.geometry(f'{self._WindowWidth}x{self._WindowHeight}')
+        self._window = tkinter.Tk()
+        self._window.title("Neutron")
+        self._window.geometry(f'{self._windowWidth}x{self._windowHeight}')
         # canvas
-        self._Canvas = tkinter.Canvas(self._Window)
-        self._Canvas.configure(bg="Gray")
-        self._Canvas.pack(fill="both", expand=True)
+        self._canvas = tkinter.Canvas(self._window)
+        self._canvas.configure(bg="Gray")
+        self._canvas.pack(fill="both", expand=True)
         # mouse
-        self._Window.bind('<Motion>', self.MousePosition)
-        self._Window.bind("<1>", self.Clicked)
-        self._MouseX = 0
-        self._MouseY = 0
-        self._Clicked = False
+        self._window.bind('<Motion>', self.MousePosition)
+        self._window.bind("<1>", self.Clicked)
+        self._mouseX = 0
+        self._mouseY = 0
+        self._clicked = False
         self._pawns = None
         self.SetFrame()
+
+    @property
+    def fieldSize(self):
+        return self._fieldSize
+
+    @property
+    def canvas(self):
+        return self._canvas
+
+    @property
+    def frameWidth(self):
+        return self._frameWidth
 
     @property
     def numOfSpaces(self):
@@ -45,86 +57,86 @@ class Window:
 
     @property
     def size(self):
-        return self._WindowWidth
+        return self._windowWidth
 
     @property
-    def MouseX(self):
-        return self._MouseX
+    def mouseX(self):
+        return self._mouseX
 
     @property
-    def MouseY(self):
-        return self._MouseY
+    def mouseY(self):
+        return self._mouseY
 
     def MousePosition(self, e):
-        self._MouseX = int(e.x / (self._FrameWidth + self._FieldSize + 1))
-        self._MouseY = int(e.y / (self._FrameWidth + self._FieldSize + 1))
+        self._mouseX = int(e.x / (self._frameWidth + self._fieldSize + 1))
+        self._mouseY = int(e.y / (self._frameWidth + self._fieldSize + 1))
 
     def Clicked(self, e):
-        self._Clicked = True
+        self._clicked = True
 
     def CheckClicked(self):
-        if self._Clicked is True:
-            self._Clicked = False
+        if self._clicked is True:
+            self._clicked = False
             return True
         else:
             return False
 
     def SetFrame(self):
         """split board into fields"""
-        width = self._FrameWidth
-        skip = self._FieldSize
+        width = self._frameWidth
+        skip = self._fieldSize
         # X
         for line in range(self._numOfSpaces+1):
-            self._Canvas.create_rectangle(
+            self._canvas.create_rectangle(
                 (width+skip)*line, 0,
-                (width+skip)*line + width, self._WindowHeight-1,
+                (width+skip)*line + width, self._windowHeight-1,
                 fill='Black')
         # Y
         for line in range(self._numOfSpaces+1):
-            self._Canvas.create_rectangle(
+            self._canvas.create_rectangle(
                 0, (width+skip)*line,
-                self._WindowWidth-1, (width+skip)*line + width,
+                self._windowWidth-1, (width+skip)*line + width,
                 fill='Black')
 
-    def SetPawns(self, TopPawns, neutron, BottomPawns):
+    def SetPawns(self, topPawns, neutron, bottomPawns):
         self._pawns = {}
-        for pawn in TopPawns:
-            self._pawns[pawn] = self.CreatePawn(pawn.color, pawn.X, pawn.Y)
+        for pawn in topPawns:
+            self._pawns[pawn] = self.CreatePawn(pawn.color, pawn.x, pawn.y)
 
-        for pawn in BottomPawns:
-            self._pawns[pawn] = self.CreatePawn(pawn.color, pawn.X, pawn.Y)
+        for pawn in bottomPawns:
+            self._pawns[pawn] = self.CreatePawn(pawn.color, pawn.x, pawn.y)
 
         self._pawns[neutron] = self.CreatePawn(
-            neutron.color, neutron.X, neutron.Y)
+            neutron.color, neutron.x, neutron.y)
 
     def ChangePawnColor(self, pawn, color):
         gPawn = self._pawns[pawn]
-        self._Canvas.itemconfig(gPawn, fill=color)
+        self._canvas.itemconfig(gPawn, fill=color)
         self.Update()
 
     def CreatePawn(self, color, x, y):
-        starter = self._FrameWidth + int(self._FieldSize / 2)
-        x = starter + x * (self._FrameWidth + self._FieldSize)
-        y = starter + y * (self._FrameWidth + self._FieldSize)
+        starter = self._frameWidth + int(self._fieldSize / 2)
+        x = starter + x * (self._frameWidth + self._fieldSize)
+        y = starter + y * (self._frameWidth + self._fieldSize)
 
-        pawn = self._Canvas.create_oval(
-            x-self._BallRadius,
-            y-self._BallRadius,
-            x+self._BallRadius,
-            y+self._BallRadius,
+        pawn = self._canvas.create_oval(
+            x-self._ballRadius,
+            y-self._ballRadius,
+            x+self._ballRadius,
+            y+self._ballRadius,
             fill=color
         )
 
         return pawn
 
     def FieldsIntoPix(self, num):
-        num = num * (self._FrameWidth + self._FieldSize)
+        num = num * (self._frameWidth + self._fieldSize)
         return num
 
     def Move(self, pawn):
 
-        x = (pawn.X - pawn.lastX)
-        y = (pawn.Y - pawn.lastY)
+        x = (pawn.x - pawn.lastX)
+        y = (pawn.y - pawn.lastY)
 
         gPawn = self._pawns[pawn]
         x = self.FieldsIntoPix(x)
@@ -154,24 +166,24 @@ class Window:
             y0 += dirY * self._step
 
             time.sleep(self.betweenStepsDelay)
-            self._Canvas.move(gPawn, dirX*self._step, dirY*self._step)
+            self._canvas.move(gPawn, dirX*self._step, dirY*self._step)
             self.Update()
 
-        self._Canvas.move(
+        self._canvas.move(
             gPawn, dirX*(abs(abs(x0) - abs(x))),
             dirY*(abs(abs(y0) - abs(y)))
             )
 
     def PrintMiddleText(self, message):
-        text = self._Canvas.create_text(
+        text = self._canvas.create_text(
             self.size/2, self.size/2, text=message,
             fill="Yellow", font=('Helvetica 25 bold'))
         self.Update()
         time.sleep(1)
-        self._Canvas.delete(text)
+        self._canvas.delete(text)
 
     def OnClosing(self):
-        self._Window.destroy()
+        self._window.destroy()
 
     def Update(self):
-        self._Window.update()
+        self._window.update()

@@ -1,23 +1,23 @@
 import Pawns
-import PlayablePlayer
-import RandomPlayer
-import AIPlayer
+from PlayablePlayer import PlayablePlayer
+from RandomPlayer import RandomPlayer
+from AIPlayer import AIPlayer
 import math
-import Board
+from Board import Board
+from Variables import Type, Set
 
 
 class Game:
-    def __init__(self, RowLen, Window, topPlayerType, bottomPlayerType):
-        """type - "AI" or "rand" or "player" """
+    def __init__(self, rowlen, window, topPlayerType, bottomPlayerType):
         self._topPlayerType = topPlayerType
         self._bottomPlayerType = bottomPlayerType
-        self._RowLen = RowLen
-        self._Board = Board.Board(self._RowLen)
-        self._Window = Window
-        self._TopPawns = []
-        self._BottomPawns = []
+        self._rowlen = rowlen
+        self._board = Board(self._rowlen)
+        self._window = window
+        self._topPawns = []
+        self._bottomPawns = []
         self._winner = None
-        self._whoseTurn = "bottom"  # or top
+        self._whoseTurn = Set.BOTTOM  # or top
         self.SetPawns()
         self.SetPlayers()
 
@@ -26,92 +26,108 @@ class Game:
         self._timer = 0
 
     @property
-    def RowLen(self):
-        return self._RowLen
+    def board(self):
+        return self._board
+
+    @property
+    def whoseTurn(self):
+        return self._whoseTurn
+
+    @property
+    def rowlen(self):
+        return self._rowlen
 
     @property
     def movedPawn(self):
         return self._movedPawn
 
     @property
-    def TopPawns(self):
-        return self._TopPawns
+    def topPawns(self):
+        return self._topPawns
 
     @property
-    def BottomPawns(self):
-        return self._BottomPawns
+    def bottomPawns(self):
+        return self._bottomPawns
 
     @property
-    def Neutron(self):
-        return self._Neutron
+    def neutron(self):
+        return self._neutron
+
+    @property
+    def player1(self):
+        return self._player1
+
+    @property
+    def player2(self):
+        return self._player2
 
     def SetPawns(self):
-        for x in range(self._RowLen):
-            self._TopPawns.append(Pawns.TopPawn(self._topPlayerType, x, 0))
-            self._Board.SetSpace(x, 0, self._TopPawns[x].set)
+        for x in range(self._rowlen):
+            self._topPawns.append(Pawns.TopPawn(self._topPlayerType, x, 0))
+            self._board.SetSpace(x, 0, self._topPawns[x].set)
 
-        for x in range(self._RowLen):
-            self._BottomPawns.append(Pawns.BottomPawn(
-                self._bottomPlayerType, x, self._RowLen - 1))
-            self._Board.SetSpace(x, self._RowLen - 1, self._BottomPawns[x].set)
+        for x in range(self._rowlen):
+            self._bottomPawns.append(Pawns.BottomPawn(
+                self._bottomPlayerType, x, self._rowlen - 1))
+            self._board.SetSpace(x, self._rowlen - 1, self._bottomPawns[x].set)
 
-        middle = math.floor(self._RowLen/2)
-        self._Neutron = Pawns.NeutronPawn("Neutron", middle, middle)
-        self._Board.SetSpace(middle, middle,  self._Neutron.set)
+        middle = math.floor(self._rowlen/2)
+        self._neutron = Pawns.NeutronPawn(Type.NEUTRON, middle, middle)
+        self._board.SetSpace(middle, middle,  self._neutron.set)
 
     def SetPlayers(self):
 
-        if (self._topPlayerType == "player"):
-            self._player1 = PlayablePlayer.PlayablePlayer(
-                self._RowLen, self._Window, self._Neutron,
-                self._TopPawns, self._Board, "top"
+        if (self._topPlayerType == Type.PLAYER):
+            self._player1 = PlayablePlayer(
+                self._rowlen, self._window, self._neutron,
+                self._topPawns, self._board, Set.TOP
                 )
-        elif (self._topPlayerType == "AI"):
-            self._player1 = AIPlayer.AIPlayer(
-                self._RowLen, self._Neutron, self._TopPawns,
-                self._Board, "top"
+        elif (self._topPlayerType == Type.AI):
+            self._player1 = AIPlayer(
+                self._rowlen, self._neutron, self._topPawns,
+                self._board, Set.TOP
                 )
         else:
-            self._player1 = RandomPlayer.RandomPlayer(
-                self._RowLen, self._Neutron, self._TopPawns,
-                self._Board, "top"
+            self._player1 = RandomPlayer(
+                self._rowlen, self._neutron, self._topPawns,
+                self._board, Set.TOP
                 )
 
-        if (self._bottomPlayerType == "player"):
-            self._player2 = PlayablePlayer.PlayablePlayer(
-                self._RowLen, self._Window, self._Neutron,
-                self._BottomPawns, self._Board, "bottom"
+        if (self._bottomPlayerType == Type.PLAYER):
+            self._player2 = PlayablePlayer(
+                self._rowlen, self._window, self._neutron,
+                self._bottomPawns, self._board, Set.BOTTOM
                 )
-        elif (self._bottomPlayerType == "AI"):
-            self._player2 = AIPlayer.AIPlayer(
-                self._RowLen, self._Neutron, self._BottomPawns,
-                self._Board, "bottom"
+        elif (self._bottomPlayerType == Type.AI):
+            self._player2 = AIPlayer(
+                self._rowlen, self._neutron, self._bottomPawns,
+                self._board, Set.BOTTOM
                 )
         else:
-            self._player2 = RandomPlayer.RandomPlayer(
-                self._RowLen, self._Neutron, self._BottomPawns,
-                self._Board, "bottom"
+            self._player2 = RandomPlayer(
+                self._rowlen, self._neutron, self._bottomPawns,
+                self._board, Set.BOTTOM
                 )
 
     def CheckIfEnd(self):
         if (
-            self._Neutron._Y == (self._RowLen - 1)
-            or self._Neutron._Y == 0
+            self._neutron.y == (self._rowlen - 1)
+            or self._neutron.y == 0
                 ):
             return True
         elif (
-            self._player2._immobileNeutron or self._player1._immobileNeutron
+            self._player2.immobileNeutron or self._player1.immobileNeutron
                 ):
             return True
         return False
 
     def WhoWon(self):
         if (
-            self._Neutron._Y == (self._RowLen - 1)
-            or self._player2._immobileNeutron
+            self._neutron.y == (self._rowlen - 1)
+            or self._player2.immobileNeutron
                 ):
             return self._player1
-        elif (self._Neutron._Y == 0 or self._player1._immobileNeutron):
+        elif (self._neutron.y == 0 or self._player1.immobileNeutron):
             return self._player2
 
     def WhatMoved(self):
@@ -126,14 +142,14 @@ class Game:
             self._movedPawn = None
 
     def Update(self):
-        if not self.CheckIfEnd() and self._whoseTurn == "bottom":
+        if not self.CheckIfEnd() and self._whoseTurn == Set.BOTTOM:
             self._player2.Update()
             if (self._player2.IsTurnFinished()):
-                self._whoseTurn = "top"
+                self._whoseTurn = Set.TOP
 
-        elif not self.CheckIfEnd() and self._whoseTurn == "top":
+        elif not self.CheckIfEnd() and self._whoseTurn == Set.TOP:
             self._player1.Update()
             if (self._player1.IsTurnFinished()):
-                self._whoseTurn = "bottom"
+                self._whoseTurn = Set.BOTTOM
 
         self.WhatMoved()
