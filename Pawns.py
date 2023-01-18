@@ -70,10 +70,11 @@ class TopPawn(Pawn):
     def SetpColor(self):
         if (self.type == Type.AI):
             return "#85C1E9"
+
         elif (self.type == Type.PLAYER):
             return "#F1948A"
-        else:
-            return "#82E0AA"
+
+        return "#82E0AA"
 
 
 class BottomPawn(Pawn):
@@ -86,7 +87,8 @@ class BottomPawn(Pawn):
     def SetpColor(self):
         if (self.type == Type.AI):
             return "#21618C"
+
         elif (self.type == Type.PLAYER):
             return "#943126"
-        else:
-            return "#1D8348"
+
+        return "#1D8348"

@@ -30,8 +30,7 @@ class Board:
     def IsFull(self, x, y):
         if (self._board[x][y] is not None):
             return True
-        else:
-            return False
+        return False
 
     def VisualRepr(self):
         str = ""

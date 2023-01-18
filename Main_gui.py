@@ -132,12 +132,12 @@ smaller than 20 and bigger than 2""")
             175, 25, window=self._rowMessage)
 
         self._topMessage = tk.Label(
-            text="choose top player type(write 'AI', 'random', or 'player'):")
+            text="choose second player type('AI', 'random', or 'player'):")
         self._topLabel = self._canvas.create_window(
             175, 75, window=self._topMessage)
 
         self._bottomMessage = tk.Label(
-            text="choose bottom player type(write 'AI', 'random', or 'player'):")
+            text="choose starting player type('AI', 'random', or 'player'):")
         self._bottomLabel = self._canvas.create_window(
             175, 125, window=self._bottomMessage)
 

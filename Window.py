@@ -78,8 +78,7 @@ class Window:
         if self._clicked is True:
             self._clicked = False
             return True
-        else:
-            return False
+        return False
 
     def SetFrame(self):
         """split board into fields"""

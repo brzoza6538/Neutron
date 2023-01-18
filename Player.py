@@ -103,8 +103,7 @@ class Player:
             self._neutronMoved = False
             self._pawnMoved = False
             return True
-        else:
-            return False
+        return False
 
     def WhatMoved(self):
         pomoc = self._movedPawn
