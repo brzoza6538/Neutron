@@ -433,3 +433,31 @@ def testAIsuicide(monkeypatch):
             break
 
     assert winner == Set.TOP
+
+
+def testStresstest():
+    topCounter = 0
+    bottomCounter = 0
+    numOfGames = 1000
+
+    for i in range(numOfGames):
+        rowlen = 7
+
+        window = Window(rowlen)
+
+        game = Game(rowlen, window, Type.AI, Type.AI)
+        window.SetPawns(game.topPawns, game.neutron, game.bottomPawns)
+
+        while True:
+            game.Update()
+
+            if game.CheckIfEnd():
+                winner = (game.WhoWon().set)
+                if (winner == Set.TOP):
+                    topCounter += 1
+                elif (winner == Set.BOTTOM):
+                    bottomCounter += 1
+
+                break
+
+    assert topCounter + bottomCounter == numOfGames

@@ -39,20 +39,20 @@ class Board:
                 if (field is None):
                     str += ("\t" + "O")
                 else:
-                    str += ("\t" + field)
+                    str += ("\t" + field.value)
 
             str += "\n"
 
         return str
 
-    def VisualRepr_90Deg(self):
+    def VisualRepr90Deg(self):
         str = ""
         for y in range(len(self._board)):
             for x in range(len(self._board[y])):
                 if (not self.IsFull(x, y)):
                     str += ("\t" + "O")
                 else:
-                    str += ("\t" + self._board[x][y])
+                    str += ("\t" + self._board[x][y].value)
 
             str += "\n"
 
