@@ -21,7 +21,7 @@ class Window:
 
         self._ballRadius = int(self._fieldSize/2) - 6
 
-        self.betweenStepsDelay = 0.01
+        self._betweenStepsDelay = 0.01
         self._step = int(self._windowWidth / 50)
 
         self._font = 'Helvetica 25 bold'
@@ -140,7 +140,9 @@ class Window:
         return num
 
     def Move(self, pawn):
-        """move pawn on the window according to last and current position"""
+        """move pawn on the window according to last and current position.
+        Animate it by moving a self._step of pixels at a time and then waiting
+        self.betweenStepsDelay amount of time"""
         x = (pawn.x - pawn.lastX)
         y = (pawn.y - pawn.lastY)
 
