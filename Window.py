@@ -1,5 +1,6 @@
 import tkinter
 import time
+from Variables import Colors
 
 
 class Window:
@@ -22,13 +23,15 @@ class Window:
 
         self.betweenStepsDelay = 0.01
         self._step = int(self._windowWidth / 50)
+
+        self._font = 'Helvetica 25 bold'
         # Window
         self._window = tkinter.Tk()
         self._window.title("Neutron")
         self._window.geometry(f'{self._windowWidth}x{self._windowHeight}')
         # canvas
         self._canvas = tkinter.Canvas(self._window)
-        self._canvas.configure(bg="Gray")
+        self._canvas.configure(bg=Colors.BACKGROUND.value)
         self._canvas.pack(fill="both", expand=True)
         # mouse
         self._window.bind('<Motion>', self.MousePosition)
@@ -89,13 +92,13 @@ class Window:
             self._canvas.create_rectangle(
                 (width+skip)*line, 0,
                 (width+skip)*line + width, self._windowHeight-1,
-                fill='Black')
+                fill=Colors.FRAME.value)
         # Y
         for line in range(self._numOfSpaces+1):
             self._canvas.create_rectangle(
                 0, (width+skip)*line,
                 self._windowWidth-1, (width+skip)*line + width,
-                fill='Black')
+                fill=Colors.FRAME.value)
 
     def SetPawns(self, topPawns, neutron, bottomPawns):
         self._pawns = {}
@@ -176,7 +179,7 @@ class Window:
     def PrintMiddleText(self, message):
         text = self._canvas.create_text(
             self.size/2, self.size/2, text=message,
-            fill="Yellow", font=('Helvetica 25 bold'))
+            fill=Colors.TEXT.value, font=(self._font))
         self.Update()
         time.sleep(1)
         self._canvas.delete(text)

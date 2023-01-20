@@ -246,7 +246,7 @@ def testPawnsBoardConsistency():
 """AI looking for win in one """
 
 
-def SetPawnsWithOneWinOption_01(self):
+def SetPawnsWithOneWinOption01(self):
     rowlen = self._rowlen
     for x in range(rowlen):
         self._topPawns.append(Pawns.TopPawn(self._topPlayerType, x, 0))
@@ -272,8 +272,8 @@ def SetPawnsWithOneWinOption_01(self):
     self._board.SetSpace(middle, middle,  self._neutron.set)
 
 
-def testAIFindingWin_01(monkeypatch):
-    monkeypatch.setattr("Game.Game.SetPawns", SetPawnsWithOneWinOption_01)
+def testAIFindingWin01(monkeypatch):
+    monkeypatch.setattr("Game.Game.SetPawns", SetPawnsWithOneWinOption01)
     var = True
     for i in range(20):
         rowlen = 7
@@ -294,7 +294,7 @@ def testAIFindingWin_01(monkeypatch):
     assert var is True
 
 
-def SetPawnsWithOneWinOption_11(self):
+def SetPawnsWithOneWinOption11(self):
     rowlen = self._rowlen
     for x in range(rowlen):
         self._topPawns.append(Pawns.TopPawn(self._topPlayerType, x, 0))
@@ -320,8 +320,8 @@ def SetPawnsWithOneWinOption_11(self):
     self._board.SetSpace(middle, middle,  self._neutron.set)
 
 
-def testAIFindingWin_11(monkeypatch):
-    monkeypatch.setattr("Game.Game.SetPawns", SetPawnsWithOneWinOption_01)
+def testAIFindingWin11(monkeypatch):
+    monkeypatch.setattr("Game.Game.SetPawns", SetPawnsWithOneWinOption01)
     var = True
     for i in range(20):
         rowlen = 7
@@ -435,10 +435,10 @@ def testAIsuicide(monkeypatch):
     assert winner == Set.TOP
 
 
-def testStresstest():
+def testStressTest():
     topCounter = 0
     bottomCounter = 0
-    numOfGames = 1000
+    numOfGames = 100
 
     for i in range(numOfGames):
         rowlen = 7

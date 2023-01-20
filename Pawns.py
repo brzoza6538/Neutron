@@ -1,4 +1,4 @@
-from Variables import Type, Set
+from Variables import Type, Set, Colors
 
 
 class Pawn:
@@ -52,7 +52,7 @@ class NeutronPawn(Pawn):
     def __init__(self, x, y):
         super().__init__(x, y)
         self._set = Set.NEUTRON
-        self._color = "#F7CFF6"
+        self._color = Colors.NEUTRON.value
 
 
 class TopPawn(Pawn):
@@ -61,16 +61,16 @@ class TopPawn(Pawn):
         super().__init__(x, y)
         self._type = type
         self._set = Set.TOP
-        self._color = self.SetpColor()
+        self._color = self.SetColor()
 
-    def SetpColor(self):
+    def SetColor(self):
         if (self.type == Type.AI):
-            return "#85C1E9"
+            return Colors.TAI.value
 
         elif (self.type == Type.PLAYER):
-            return "#F1948A"
+            return Colors.TPLAYER.value
 
-        return "#82E0AA"
+        return Colors.TRANDOM.value
 
     @property
     def type(self):
@@ -83,16 +83,16 @@ class BottomPawn(Pawn):
         super().__init__(x, y)
         self._type = type
         self._set = Set.BOTTOM
-        self._color = self.SetpColor()
+        self._color = self.SetColor()
 
-    def SetpColor(self):
+    def SetColor(self):
         if (self.type == Type.AI):
-            return "#21618C"
+            return Colors.BAI.value
 
         elif (self.type == Type.PLAYER):
-            return "#943126"
+            return Colors.BPLAYER.value
 
-        return "#1D8348"
+        return Colors.BRANDOM.value
 
     @property
     def type(self):

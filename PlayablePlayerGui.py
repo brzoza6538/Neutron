@@ -1,3 +1,6 @@
+from Variables import Colors
+
+
 class PlayablePlayerGui():
     def __init__(self, Window):
         self._window = Window
@@ -16,7 +19,7 @@ class PlayablePlayerGui():
             self._window.mouseX == pawn.x and
             self._window.mouseY == pawn.y
         ):
-            self._window.ChangePawnColor(pawn, "Orange")
+            self._window.ChangePawnColor(pawn, Colors.CHOSEN.value)
             return True
         else:
             self._window.ChangePawnColor(pawn, pawn.color)
@@ -32,7 +35,7 @@ class PlayablePlayerGui():
             y0 * fieldsize + fieldsize/2,
             x1 * fieldsize + fieldsize/2,
             y1 * fieldsize + fieldsize/2,
-            fill="Red",
+            fill=Colors.SIGHT.value,
             width=5
         )
 
