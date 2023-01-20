@@ -15,6 +15,7 @@ class PlayablePlayerGui():
         return self._window.mouseY
 
     def IsMouseOnPawn(self, pawn):
+        """is cursor over the pawn"""
         if (
             self._window.mouseX == pawn.x and
             self._window.mouseY == pawn.y
@@ -26,6 +27,7 @@ class PlayablePlayerGui():
             return False
 
     def ShowLine(self, x0, y0, x1, y1):
+        """show line used for aiming"""
         self._window.canvas.delete(self._line)
 
         fieldsize = self._window.frameWidth + self._window.fieldSize
@@ -40,14 +42,17 @@ class PlayablePlayerGui():
         )
 
     def DelLine(self):
+        """delete line used for aiming"""
         self._window.canvas.delete(self._line)
 
     def PawnClickedOn(self, pawn):
+        """checks if cursor was over the pawn while clicked"""
         if (self.IsMouseOnPawn(pawn) and self._window.CheckClicked()):
             return True
         return False
 
     def CheckClicked(self):
+        """was mouse clicked"""
         if (self._window.CheckClicked()):
             return True
         return False

@@ -10,6 +10,8 @@ from Variables import Type, Set
 
 """test ending game conditions"""
 
+"""what happens when neutron can't move"""
+
 
 def SetPawnsSurroundingNeutron(self):
     for x in range(self._rowlen):
@@ -57,6 +59,9 @@ def testSurroundedNeutronBottomWins(monkeypatch):
     game.Update()
     x = game.WhoWon()
     assert isinstance(x, PlayablePlayer.PlayablePlayer)
+
+
+"""check how game goes when neutron is at the last row"""
 
 
 def SetPawnsNeutronAtEnemy(self):
@@ -152,7 +157,7 @@ def testNeutronAtPlayerEnemyTurn(monkeypatch):
     assert isinstance(x, RandomPlayer.RandomPlayer)
 
 
-"""board and pawn locations consistency"""
+"""check board and pawn locations consistency"""
 
 
 def usePawn(pawn, game):
@@ -243,7 +248,7 @@ def testPawnsBoardConsistency():
     assert var is True
 
 
-"""AI looking for win in one """
+"""AI looking for win in one"""
 
 
 def SetPawnsWithOneWinOption01(self):
@@ -342,7 +347,7 @@ def testAIFindingWin11(monkeypatch):
     assert var is True
 
 
-"""AI choosin not fatal Move"""
+"""AI choosin not moves that wouldn't make it lose"""
 
 
 def SetPawnsWithEnemyDefenseless(self):
@@ -384,7 +389,7 @@ def testNotLoosingAbility(monkeypatch):
     assert var is True
 
 
-"""AI have only an option that would make them lose"""
+"""AI have only an option that would make them lose. check if they choose it"""
 
 
 def SetPawnsAlmostSurroundingNeutron(self):
@@ -433,6 +438,9 @@ def testAIsuicide(monkeypatch):
             break
 
     assert winner == Set.TOP
+
+
+"""play the game multiple times and check if everything works fine"""
 
 
 def testStressTest():

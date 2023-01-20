@@ -43,12 +43,9 @@ class Player:
     def pawns(self):
         return self._pawns
 
-    def Render(self):
-        for pawn in range(5):
-            self._pawns[pawn].Update()
-
     def IsMoveInDirPossible(self, x0, y0, dirX, dirY):
-        """sprawdza czy ruch możliwy, ruch o 0 pól oznacza że niemożliwy"""
+        """check if move is possible from (x0, y0) in direction (dirX,dirY)
+        move by zero spaces means, moeve is not possible"""
         if (
             (x0 + dirX > (self._rowlen - 1)) or
             (y0 + dirY > (self._rowlen - 1)) or
@@ -60,6 +57,7 @@ class Player:
         return True
 
     def IsNeutronMovable(self):
+        """can neutron be moved"""
         x0 = self._neutron.x
         y0 = self._neutron.y
         for dirX in [-1, 0, 1]:
@@ -70,7 +68,7 @@ class Player:
         return False
 
     def MoveToWhere(self, pawn, x, y):
-        """sprawdza zasieg ruchu"""
+        """check how far can pawn go in direction(x, y)"""
         xCheck = pawn.x
         yCheck = pawn.y
         while True:
@@ -83,7 +81,8 @@ class Player:
         return xCheck, yCheck
 
     def Move(self, x, y):
-        """x, y przyjmuja wartość -1, 0, 1"""
+        """x, y are directions, equal -1, 0, or 1
+        move chosen pawn in (x,y) direction"""
         pawn = self._usedPawn
         if (pawn.set == Set.NEUTRON):
             self._neutronMoved = True
@@ -106,6 +105,7 @@ class Player:
         return False
 
     def WhatMoved(self):
+        """what pawn moved last"""
         pomoc = self._movedPawn
         self._movedPawn = None
         return pomoc

@@ -7,6 +7,7 @@ class RandomPlayer(Player):
         super().__init__(rowlen, neutron, pawns, board, set)
 
     def RandomMove(self):
+        """makes a move in a random direction"""
         dirX = random.randint(-1, 1)
         dirY = random.randint(-1, 1)
 
@@ -16,6 +17,7 @@ class RandomPlayer(Player):
             self.Move(dirX, dirY)
 
     def ChoosePawn(self):
+        """choose random pawn to move"""
         self._usedPawn = self._pawns[
             random.randint(0,  (self._rowlen - 1))]
 

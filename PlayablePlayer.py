@@ -9,6 +9,7 @@ class PlayablePlayer(Player):
         self._gui = PlayablePlayerGui(self._window)
 
     def Turn(self):
+        """lets player choose which way to make their pawn go"""
         pawn = self._usedPawn
         dirX = self._gui.mouseX - pawn.x
         if dirX > 0:
@@ -34,6 +35,8 @@ class PlayablePlayer(Player):
                 self.ChangePawnMidMove()
 
     def ChangePawnMidMove(self):
+        """changes pawns when player clicks on a pawn,
+        while he's pointing a currently used pawn to move at it"""
         for pawn in self._pawns:
             if (pawn.x == self._gui.mouseX and
                     pawn.y == self._gui.mouseY):

@@ -101,6 +101,7 @@ class Window:
                 fill=Colors.FRAME.value)
 
     def SetPawns(self, topPawns, neutron, bottomPawns):
+        """set pawns on the window"""
         self._pawns = {}
         for pawn in topPawns:
             self._pawns[pawn] = self.CreatePawn(pawn.color, pawn.x, pawn.y)
@@ -112,11 +113,13 @@ class Window:
             neutron.color, neutron.x, neutron.y)
 
     def ChangePawnColor(self, pawn, color):
+        """chenges a color of a pawn"""
         gPawn = self._pawns[pawn]
         self._canvas.itemconfig(gPawn, fill=color)
         self.Update()
 
     def CreatePawn(self, color, x, y):
+        """creates visual representation of a pawn"""
         starter = self._frameWidth + int(self._fieldSize / 2)
         x = starter + x * (self._frameWidth + self._fieldSize)
         y = starter + y * (self._frameWidth + self._fieldSize)
@@ -132,6 +135,7 @@ class Window:
         return pawn
 
     def FieldsIntoPix(self, num):
+        """change pixels into fields on a board"""
         num = num * (self._frameWidth + self._fieldSize)
         return num
 
@@ -177,6 +181,7 @@ class Window:
             )
 
     def PrintMiddleText(self, message):
+        """print an announcement on board"""
         text = self._canvas.create_text(
             self.size/2, self.size/2, text=message,
             fill=Colors.TEXT.value, font=(self._font))

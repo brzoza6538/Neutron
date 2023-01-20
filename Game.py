@@ -62,6 +62,7 @@ class Game:
         return self._player2
 
     def SetPawns(self):
+        """initialise and set pawns at the start of the game"""
         for x in range(self._rowlen):
             self._topPawns.append(Pawns.TopPawn(self._topPlayerType, x, 0))
             self._board.SetSpace(x, 0, self._topPawns[x].set)
@@ -76,7 +77,7 @@ class Game:
         self._board.SetSpace(middle, middle,  self._neutron.set)
 
     def SetPlayers(self):
-
+        """initialise and set players at the start of the game"""
         if (self._topPlayerType == Type.PLAYER):
             self._player1 = PlayablePlayer(
                 self._rowlen, self._window, self._neutron,
@@ -110,6 +111,7 @@ class Game:
                 )
 
     def CheckIfEnd(self):
+        """check if game has finished"""
         if (
             self._neutron.y == (self._rowlen - 1)
             or self._neutron.y == 0
@@ -122,6 +124,7 @@ class Game:
         return False
 
     def WhoWon(self):
+        """check who won"""
         if (
             self._neutron.y == (self._rowlen - 1)
             or self._player2.immobileNeutron
@@ -131,6 +134,7 @@ class Game:
             return self._player2
 
     def WhatMoved(self):
+        """check which pawn moved"""
         player2Check = self._player2.WhatMoved()
         player1check = self._player1.WhatMoved()
 

@@ -40,7 +40,7 @@ class Pawn:
         return self._lastY
 
     def Move(self, x, y):
-        """what field (x, y) move to"""
+        """change current location to (x,y)"""
         self._lastX = self.x
         self._lastY = self.y
         self._x = x
@@ -56,7 +56,7 @@ class NeutronPawn(Pawn):
 
 
 class TopPawn(Pawn):
-
+    """pawns starting at the top of the board"""
     def __init__(self, type, x, y):
         super().__init__(x, y)
         self._type = type
@@ -78,7 +78,7 @@ class TopPawn(Pawn):
 
 
 class BottomPawn(Pawn):
-
+    """pawns starting at the bottom of the board"""
     def __init__(self, type, x, y):
         super().__init__(x, y)
         self._type = type

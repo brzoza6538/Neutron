@@ -25,6 +25,7 @@ class MainGui():
         self.PrepareData()
 
     def PrepareData(self):
+        """chenge data from strings to Type's attributes"""
         if (self._bottomPlayerType == Type.AI.value):
             self._bottomPlayerType = Type.AI
         elif (self._bottomPlayerType == Type.PLAYER.value):
@@ -40,7 +41,8 @@ class MainGui():
             self._topPlayerType = Type.RANDOM
 
     def CheckData(self):
-        # while True:
+        """method activated when button pressed
+        check if input data is correct"""
         rowlen = self._rowEntry.get()
         try:
             rowlen = int(rowlen)
@@ -126,6 +128,7 @@ smaller than 20 and bigger than 2""")
             self.OnClosing()
 
     def GetData(self):
+        """prepare the window asking for data"""
         self._rowMessage = tk.Label(
             text="choose the size of the board (how many fields in a row):")
         self._rowLabel = self._canvas.create_window(
@@ -148,6 +151,7 @@ smaller than 20 and bigger than 2""")
         self._window.destroy()
 
     def Value(self):
+        """returns values gotten from the window"""
         return (self._rowlen, self._topPlayerType, self._bottomPlayerType)
 
     @property
