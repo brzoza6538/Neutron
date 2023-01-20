@@ -38,7 +38,7 @@ class PlayablePlayerGui():
             x1 * fieldsize + fieldsize/2,
             y1 * fieldsize + fieldsize/2,
             fill=Colors.SIGHT.value,
-            width=5
+            width=self._window.frameWidth
         )
 
     def DelLine(self):
