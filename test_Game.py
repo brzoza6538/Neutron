@@ -3,17 +3,12 @@ from Game import Game
 import Pawns
 import RandomPlayer
 import PlayablePlayer
-import random
 import math
 from Variables import Type, Set
 
 
-"""test ending game conditions"""
-
-"""what happens when neutron can't move"""
-
-
 def SetPawnsSurroundingNeutron(self):
+    """sets pawns surrounding the neutron"""
     for x in range(self._rowlen):
         self._topPawns.append(Pawns.TopPawn(self._topPlayerType, x, 0))
         self._board.SetSpace(x, 0, self._topPawns[x].set)
@@ -34,6 +29,7 @@ def SetPawnsSurroundingNeutron(self):
 
 
 def testSurroundedNeutronBottomLoses(monkeypatch):
+    """what happens when neutron can't move during bottom player's turn"""
     monkeypatch.setattr("Game.Game.SetPawns", SetPawnsSurroundingNeutron)
 
     rowlen = 7
@@ -49,6 +45,7 @@ def testSurroundedNeutronBottomLoses(monkeypatch):
 
 
 def testSurroundedNeutronBottomWins(monkeypatch):
+    """what happens when neutron can't move during top player's turn"""
     monkeypatch.setattr("Game.Game.SetPawns", SetPawnsSurroundingNeutron)
     rowlen = 7
     window = Window(rowlen)
@@ -61,10 +58,8 @@ def testSurroundedNeutronBottomWins(monkeypatch):
     assert isinstance(x, PlayablePlayer.PlayablePlayer)
 
 
-"""check how game goes when neutron is at the last row"""
-
-
 def SetPawnsNeutronAtEnemy(self):
+    """spawns netron in top player's row"""
     rowlen = self._rowlen
     for x in range(rowlen):
         self._topPawns.append(Pawns.TopPawn(self._topPlayerType, x, 1))
@@ -83,6 +78,8 @@ def SetPawnsNeutronAtEnemy(self):
 
 
 def testNeutronAtEnemyPlayerTurn(monkeypatch):
+    """check how game goes when neutron is in top player's row
+    during bottom player's turn """
     monkeypatch.setattr("Game.Game.SetPawns", SetPawnsNeutronAtEnemy)
     rowlen = 7
     window = Window(rowlen)
@@ -97,6 +94,8 @@ def testNeutronAtEnemyPlayerTurn(monkeypatch):
 
 
 def testNeutronAtEnemyEnemyTurn(monkeypatch):
+    """check how game goes when neutron is in top player's row
+    during top player's turn """
     monkeypatch.setattr("Game.Game.SetPawns", SetPawnsNeutronAtEnemy)
 
     rowlen = 7
@@ -111,6 +110,7 @@ def testNeutronAtEnemyEnemyTurn(monkeypatch):
 
 
 def SetPawnsNeutronAtPlayer(self):
+    """spawns netron in bottom player's row"""
     rowlen = self._rowlen
     for x in range(rowlen):
         self._topPawns.append(Pawns.TopPawn(self._topPlayerType, x, 1))
@@ -129,6 +129,8 @@ def SetPawnsNeutronAtPlayer(self):
 
 
 def testNeutronAtPlayerPlayerTurn(monkeypatch):
+    """check how game goes when neutron is in bottom player's row
+    during bottom player's turn """
     monkeypatch.setattr("Game.Game.SetPawns", SetPawnsNeutronAtPlayer)
 
     rowlen = 7
@@ -144,6 +146,8 @@ def testNeutronAtPlayerPlayerTurn(monkeypatch):
 
 
 def testNeutronAtPlayerEnemyTurn(monkeypatch):
+    """check how game goes when neutron is in bottom player's row
+    during top player's turn """
     monkeypatch.setattr("Game.Game.SetPawns", SetPawnsNeutronAtPlayer)
 
     rowlen = 7
@@ -157,41 +161,24 @@ def testNeutronAtPlayerEnemyTurn(monkeypatch):
     assert isinstance(x, RandomPlayer.RandomPlayer)
 
 
-"""check board and pawn locations consistency"""
-
-
-def usePawn(pawn, game):
-    while True:
-        if hasattr(pawn, "__len__"):
-            usedPawn = pawn[random.randint(0,  (game.rowlen - 1))]
-        else:
-            usedPawn = pawn
-
-        dirX = random.randint(-1, 1)
-        dirY = random.randint(-1, 1)
-
-        if (game.player1.IsMoveInDirPossible(
-            usedPawn.x, usedPawn.y, dirX, dirY
-                )):
-            game._player1._usedPawn = usedPawn
-            game.player1.Move(dirX, dirY)
-
-            break
-
-
 def testBoardPawnsConsistency():
+    """checks board after many moves if any pawn wasn't lost"""
     rowlen = 7
     window = Window(rowlen)
 
-    game = Game(rowlen, window, Type.RANDOM, Type.PLAYER)
+    game = Game(rowlen, window, Type.RANDOM, Type.RANDOM)
     window.SetPawns(game.topPawns, game.neutron, game.bottomPawns)
 
     for i in range(25):
-        usePawn(game.player1.pawns, game)
-        usePawn(game.player1.neutron, game)
+        game.player1.ChoosePawn()
+        game.player1.RandomMove()
+        game.player1._usedPawn = game.player1._neutron
+        game.player1.RandomMove()
 
-        usePawn(game.player2._pawns, game)
-        usePawn(game.player2._neutron, game)
+        game.player2.ChoosePawn()
+        game.player2.RandomMove()
+        game.player2._usedPawn = game.player2._neutron
+        game.player2.RandomMove()
 
     playerPawnsCounter = 0
     randPawnsCounter = 0
@@ -218,18 +205,24 @@ def testBoardPawnsConsistency():
 
 
 def testPawnsBoardConsistency():
+    """checks if location in pawns matches what is stored in board
+    after many moves"""
     rowlen = 7
     window = Window(rowlen)
 
-    game = Game(rowlen, window, Type.RANDOM, Type.PLAYER)
+    game = Game(rowlen, window, Type.RANDOM, Type.RANDOM)
     window.SetPawns(game.topPawns, game.neutron, game.bottomPawns)
 
     for i in range(25):
-        usePawn(game.player1.pawns, game)
-        usePawn(game.player1.neutron, game)
+        game.player1.ChoosePawn()
+        game.player1.RandomMove()
+        game.player1._usedPawn = game.player1._neutron
+        game.player1.RandomMove()
 
-        usePawn(game.player2.pawns, game)
-        usePawn(game.player2.neutron, game)
+        game.player2.ChoosePawn()
+        game.player2.RandomMove()
+        game.player2._usedPawn = game.player2._neutron
+        game.player2.RandomMove()
 
     var = True
     board = game.board.board
@@ -248,10 +241,8 @@ def testPawnsBoardConsistency():
     assert var is True
 
 
-"""AI looking for win in one"""
-
-
 def SetPawnsWithOneWinOption01(self):
+    """set pawns where neutron can win in one move, moving downward"""
     rowlen = self._rowlen
     for x in range(rowlen):
         self._topPawns.append(Pawns.TopPawn(self._topPlayerType, x, 0))
@@ -278,6 +269,7 @@ def SetPawnsWithOneWinOption01(self):
 
 
 def testAIFindingWin01(monkeypatch):
+    """check if AI will win in one when neutron can move downward to win"""
     monkeypatch.setattr("Game.Game.SetPawns", SetPawnsWithOneWinOption01)
     var = True
     for i in range(20):
@@ -295,11 +287,11 @@ def testAIFindingWin01(monkeypatch):
         if (game.neutron.y != rowlen-1):
             var = False
             break
-
     assert var is True
 
 
 def SetPawnsWithOneWinOption11(self):
+    """set pawns where neutron can win in one move, moving downward right"""
     rowlen = self._rowlen
     for x in range(rowlen):
         self._topPawns.append(Pawns.TopPawn(self._topPlayerType, x, 0))
@@ -326,6 +318,8 @@ def SetPawnsWithOneWinOption11(self):
 
 
 def testAIFindingWin11(monkeypatch):
+    """check if AI will win in one move when neutron
+    can move downward right to win"""
     monkeypatch.setattr("Game.Game.SetPawns", SetPawnsWithOneWinOption01)
     var = True
     for i in range(20):
@@ -347,10 +341,8 @@ def testAIFindingWin11(monkeypatch):
     assert var is True
 
 
-"""AI choosin not moves that wouldn't make it lose"""
-
-
 def SetPawnsWithEnemyDefenseless(self):
+    """set pawns where top row is defenseless"""
     rowlen = self._rowlen
     for x in range(rowlen):
         self._topPawns.append(Pawns.TopPawn(
@@ -368,6 +360,7 @@ def SetPawnsWithEnemyDefenseless(self):
 
 
 def testNotLoosingAbility(monkeypatch):
+    """will AI make moves that wouldn't make it lose"""
     monkeypatch.setattr("Game.Game.SetPawns", SetPawnsWithEnemyDefenseless)
     var = True
     for i in range(20):
@@ -389,10 +382,9 @@ def testNotLoosingAbility(monkeypatch):
     assert var is True
 
 
-"""AI have only an option that would make them lose. check if they choose it"""
-
-
 def SetPawnsAlmostSurroundingNeutron(self):
+    """set pawns where the only move bottom player can make
+     with neutron will make it lose"""
     for x in range(self._rowlen):
         self._topPawns.append(Pawns.TopPawn(self._topPlayerType, x, 0))
         self._board.SetSpace(x, 0, self._topPawns[x].set)
@@ -419,6 +411,8 @@ def SetPawnsAlmostSurroundingNeutron(self):
 
 
 def testAIsuicide(monkeypatch):
+    """AI have only an option that would make them lose.
+    check if they choose it"""
     monkeypatch.setattr("Game.Game.SetPawns", SetPawnsAlmostSurroundingNeutron)
 
     rowlen = 7
