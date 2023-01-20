@@ -113,7 +113,7 @@ class Window:
             neutron.color, neutron.x, neutron.y)
 
     def ChangePawnColor(self, pawn, color):
-        """chenges a color of a pawn"""
+        """chenges a color of a pawn to color"""
         gPawn = self._pawns[pawn]
         self._canvas.itemconfig(gPawn, fill=color)
         self.Update()
@@ -140,7 +140,7 @@ class Window:
         return num
 
     def Move(self, pawn):
-
+        """move pawn on the window according to last and current position"""
         x = (pawn.x - pawn.lastX)
         y = (pawn.y - pawn.lastY)
 

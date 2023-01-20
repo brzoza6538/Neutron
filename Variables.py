@@ -23,15 +23,15 @@ class Colors(Enum):
     CHOSEN = "Orange"
     SIGHT = "Red"
 
-    # top pawns colors
-    TAI = "#85C1E9"
-    TPLAYER = "#F1948A"
-    TRANDOM = "#82E0AA"
-
     # bottom pawns colors
-    BAI = "#21618C"
-    BPLAYER = "#943126"
-    BRANDOM = "#1D8348"
+    BAI = "#85C1E9"
+    BPLAYER = "#F1948A"
+    BRANDOM = "#82E0AA"
+
+    # top pawns colors
+    TAI = "#21618C"
+    TPLAYER = "#943126"
+    TRANDOM = "#1D8348"
 
     # Window
     BACKGROUND = "Grey"

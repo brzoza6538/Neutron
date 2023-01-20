@@ -105,7 +105,7 @@ class Player:
         return False
 
     def WhatMoved(self):
-        """what pawn moved last"""
+        """which pawn moved last"""
         pomoc = self._movedPawn
         self._movedPawn = None
         return pomoc

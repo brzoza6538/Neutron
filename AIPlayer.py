@@ -49,7 +49,7 @@ class AIPlayer(Player):
             random.randint(0,  (self._rowlen - 1))]
 
     def IsMoveSafe(self, dirX, dirY):
-        """will move result in defeat"""
+        """will the move in direction(dirX,dirY) result in defeat"""
         stepY = self.MoveToWhere(self._usedPawn, dirX, dirY)[1]
         if (self._neutron == self._usedPawn):
             if (self._baseRow == stepY):

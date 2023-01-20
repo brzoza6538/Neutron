@@ -16,22 +16,22 @@ class Board:
         return Board
 
     def SetSpace(self, x, y, set):
-        """puts set on field (x, y)"""
+        """puts set on field (x, y) of the board"""
         self._board[x][y] = set
 
     def ClearSpace(self, x, y):
-        """clears field (x,y), putting in None"""
+        """clears field (x,y) of board, putting in None"""
         self._board[x][y] = None
 
     def IsFull(self, x, y):
-        """is field (x,y) occupied"""
+        """is field (x,y) occupied on the board"""
         if (self._board[x][y] is not None):
             return True
         return False
 
     def VisualRepr(self):
         """returns a string representation of the board. Used range() because
-        'for row in board, for field in row' 
+        'for row in board, for field in row'
         would show the board rotated to the left"""
         str = ""
         for y in range(len(self._board)):

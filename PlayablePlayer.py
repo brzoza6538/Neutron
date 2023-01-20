@@ -9,7 +9,7 @@ class PlayablePlayer(Player):
         self._gui = PlayablePlayerGui(self._window)
 
     def Turn(self):
-        """lets player choose which way to make their pawn go"""
+        """lets player make a move"""
         pawn = self._usedPawn
         dirX = self._gui.mouseX - pawn.x
         if dirX > 0:
