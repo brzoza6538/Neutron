@@ -1,4 +1,4 @@
-from Variables import Type, Set
+from Variables import Set
 
 
 class Player:
@@ -85,7 +85,7 @@ class Player:
     def Move(self, x, y):
         """x, y przyjmuja wartość -1, 0, 1"""
         pawn = self._usedPawn
-        if (pawn.set == Type.NEUTRON):
+        if (pawn.set == Set.NEUTRON):
             self._neutronMoved = True
         else:
             self._pawnMoved = True

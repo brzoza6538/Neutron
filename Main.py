@@ -1,10 +1,10 @@
 from Window import Window
 from Game import Game
-from Main_gui import Main_gui
+from MainGui import MainGui
 
 
 def Main():
-    customData = Main_gui()
+    customData = MainGui()
     top = customData.topPlayerType
     bottom = customData.bottomPlayerType
     rowlen = customData.rowlen

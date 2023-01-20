@@ -72,7 +72,7 @@ class Game:
             self._board.SetSpace(x, self._rowlen - 1, self._bottomPawns[x].set)
 
         middle = math.floor(self._rowlen/2)
-        self._neutron = Pawns.NeutronPawn(Type.NEUTRON, middle, middle)
+        self._neutron = Pawns.NeutronPawn(middle, middle)
         self._board.SetSpace(middle, middle,  self._neutron.set)
 
     def SetPlayers(self):

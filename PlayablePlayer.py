@@ -1,12 +1,12 @@
 from Player import Player
-from PlayablePlayer_gui import PlayablePlayer_gui
+from PlayablePlayerGui import PlayablePlayerGui
 
 
 class PlayablePlayer(Player):
     def __init__(self, rowlen, window, neutron, pawns, board, set):
         super().__init__(rowlen, neutron, pawns, board, set)
         self._window = window
-        self._gui = PlayablePlayer_gui(self._window)
+        self._gui = PlayablePlayerGui(self._window)
 
     def Turn(self):
         pawn = self._usedPawn

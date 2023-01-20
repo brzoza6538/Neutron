@@ -27,7 +27,7 @@ def SetPawnsSurroundingNeutron(self):
     self._board.SetSpace(
         1, 1, self._bottomPawns[self._rowlen-1].set)
 
-    self._neutron = Pawns.NeutronPawn(Type.NEUTRON, 0, 1)
+    self._neutron = Pawns.NeutronPawn(0, 1)
     self._board.SetSpace(0, 1,  self._neutron.set)
 
 
@@ -73,7 +73,7 @@ def SetPawnsNeutronAtEnemy(self):
             x, (rowlen - 1), self._bottomPawns[x].set
             )
     middle = 0
-    self._neutron = Pawns.NeutronPawn(Type.NEUTRON, middle, middle)
+    self._neutron = Pawns.NeutronPawn(middle, middle)
     self._board.SetSpace(middle, middle,  self._neutron.set)
 
 
@@ -119,7 +119,7 @@ def SetPawnsNeutronAtPlayer(self):
             x, (rowlen - 1), self._bottomPawns[x].set
             )
     middle = rowlen - 1
-    self._neutron = Pawns.NeutronPawn(Type.NEUTRON, middle, middle)
+    self._neutron = Pawns.NeutronPawn(middle, middle)
     self._board.SetSpace(middle, middle,  self._neutron.set)
 
 
@@ -268,7 +268,7 @@ def SetPawnsWithOneWinOption_01(self):
                 1, 1, self._bottomPawns[x].set
                 )
     middle = math.floor(self._rowlen/2)
-    self._neutron = Pawns.NeutronPawn(Type.NEUTRON, middle, middle)
+    self._neutron = Pawns.NeutronPawn(middle, middle)
     self._board.SetSpace(middle, middle,  self._neutron.set)
 
 
@@ -316,7 +316,7 @@ def SetPawnsWithOneWinOption_11(self):
                 1, 1, self._bottomPawns[x].set
                 )
     middle = math.floor(self._rowlen/2)
-    self._neutron = Pawns.NeutronPawn(Type.NEUTRON, middle, middle)
+    self._neutron = Pawns.NeutronPawn(middle, middle)
     self._board.SetSpace(middle, middle,  self._neutron.set)
 
 
@@ -358,7 +358,7 @@ def SetPawnsWithEnemyDefenseless(self):
         self._board.SetSpace(x, rowlen - 1, self._bottomPawns[x].set)
 
     middle = math.floor(self._rowlen/2)
-    self._neutron = Pawns.NeutronPawn(Type.NEUTRON, middle, middle)
+    self._neutron = Pawns.NeutronPawn(middle, middle)
     self._board.SetSpace(middle, middle,  self._neutron.set)
 
 
@@ -409,7 +409,7 @@ def SetPawnsAlmostSurroundingNeutron(self):
     self._board.SetSpace(
         1, 1, self._bottomPawns[self._rowlen-1].set)
 
-    self._neutron = Pawns.NeutronPawn(Type.NEUTRON, 0, 1)
+    self._neutron = Pawns.NeutronPawn(0, 1)
     self._board.SetSpace(0, 1,  self._neutron.set)
 
 

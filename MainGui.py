@@ -2,7 +2,7 @@ import tkinter as tk
 from Variables import Type
 
 
-class Main_gui():
+class MainGui():
     def __init__(self):
         self._window = tk.Tk()
         self._canvas = tk.Canvas(self._window, width=350, height=200)

@@ -3,11 +3,10 @@ from Variables import Type, Set
 
 class Pawn:
 
-    def __init__(self, type, x, y):
+    def __init__(self, x, y):
         """x, y according to board, not pixels"""
         self._x = x
         self._y = y
-        self._type = type
         self._set = None
         self._color = None
         self._lastY = None
@@ -19,10 +18,6 @@ class Pawn:
     @property
     def set(self):
         return self._set
-
-    @property
-    def type(self):
-        return self._type
 
     @property
     def color(self):
@@ -54,16 +49,17 @@ class Pawn:
 
 class NeutronPawn(Pawn):
 
-    def __init__(self, type, x, y):
-        super().__init__(type, x, y)
-        self._set = Type.NEUTRON
+    def __init__(self, x, y):
+        super().__init__(x, y)
+        self._set = Set.NEUTRON
         self._color = "#F7CFF6"
 
 
 class TopPawn(Pawn):
 
     def __init__(self, type, x, y):
-        super().__init__(type, x, y)
+        super().__init__(x, y)
+        self._type = type
         self._set = Set.TOP
         self._color = self.SetpColor()
 
@@ -76,11 +72,16 @@ class TopPawn(Pawn):
 
         return "#82E0AA"
 
+    @property
+    def type(self):
+        return self._type
+
 
 class BottomPawn(Pawn):
 
     def __init__(self, type, x, y):
-        super().__init__(type, x, y)
+        super().__init__(x, y)
+        self._type = type
         self._set = Set.BOTTOM
         self._color = self.SetpColor()
 
@@ -92,3 +93,7 @@ class BottomPawn(Pawn):
             return "#943126"
 
         return "#1D8348"
+
+    @property
+    def type(self):
+        return self._type

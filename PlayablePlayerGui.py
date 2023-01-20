@@ -1,4 +1,4 @@
-class PlayablePlayer_gui():
+class PlayablePlayerGui():
     def __init__(self, Window):
         self._window = Window
         self._line = None
