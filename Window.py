@@ -173,7 +173,7 @@ class Window:
             x0 += dirX * self._step
             y0 += dirY * self._step
 
-            time.sleep(self.betweenStepsDelay)
+            time.sleep(self._betweenStepsDelay)
             self._canvas.move(gPawn, dirX*self._step, dirY*self._step)
             self.Update()
 
